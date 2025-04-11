@@ -1,16 +1,14 @@
-version: '3'
-
 services:
   geomanager_db:
     container_name: geomanager_db
-    image: postgis/postgis:15-master
+    image: postgis/postgis:${PG_VERSION:-15-master}
     restart: always
     environment:
       - POSTGRES_USER=${CMS_DB_USER}
       - POSTGRES_DB=${CMS_DB_NAME}
       - POSTGRES_PASSWORD=${CMS_DB_PASSWORD}
     ports:
-      - "5432"
+      - ${DB_HOST_PORT:-5431}:5432
     volumes:
       - ${CMS_DB_VOLUME}:/var/lib/postgresql/data/
   geomanager_memcached:
@@ -18,7 +16,7 @@ services:
     container_name: geomanager_memcached
     restart: always
     ports:
-      - "11211"
+      - ${CACHE_HOST_PORT:-11211}:11211
     entrypoint:
       - memcached
       - -m 1024
@@ -36,7 +34,7 @@ services:
       && gunicorn geomanagerweb.asgi 
       --bind 0.0.0.0:8000 --workers=${CMS_NUM_OF_WORKERS} --worker-class=uvicorn.workers.UvicornWorker"
     expose:
-      - "8000"
+      - ${WEB_PORT:-8091}:8000
     environment:
       - WAIT_HOSTS=geomanager_db:5432,geomanager_memcached:11211
       - WAIT_TIMEOUT=120
@@ -52,14 +50,14 @@ services:
       - MAPVIEWER_SERVER_URL=http://geomanager_mapviewer:3000
       - WAGTAILADMIN_BASE_URL=${CMS_BASE_URL}
       - LANGUAGE_CODE=${CMS_DEFAULT_LANGUAGE_CODE}
-      - FORCE_SCRIPT_NAME=${FORCE_SCRIPT_NAME}
+      - FORCE_SCRIPT_NAME=${FORCE_SCRIPT_NAME:-}
       - GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR=/geomanager/data
       - DJANGO_SETTINGS_MODULE=geomanagerweb.settings.production
       - DJANGO_ALLOW_ASYNC_UNSAFE=true
     depends_on:
       - geomanager_db
     ports:
-      - "8000"
+      - ${WEB_HOST_PORT:-8181}:8000
     volumes:
       - ${CMS_STATIC_VOLUME}:/home/app/static
       - ${CMS_MEDIA_VOLUME}:/home/app/media
@@ -85,7 +83,7 @@ services:
       - ${MAPVIEWER_NEXT_STATIC_VOLUME}:/app/nginx/.next/static
       - ./docker/volumes/mapviewer/.cache:/root/.cache
     ports:
-      - "3000"
+      - ${UI_HOST_PORT:-3130}:3000
   geomanager_nginx:
     container_name: geomanager_nginx
     image: nginx:1.20.2-alpine
@@ -96,6 +94,6 @@ services:
       - ${MAPVIEWER_NEXT_STATIC_VOLUME}:/mapviewer/static
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
     ports:
-      - ${CMS_PORT}:80
+      - ${CMS_HOST_PORT:-8180}:80
     depends_on:
       - geomanager_web

@@ -23,29 +23,26 @@ env = environ.Env(
     EMAIL_USE_TLS=(bool, True),
 )
 
-if os.path.exists(os.path.join(BASE_DIR, '.env')):
+if os.path.exists(os.path.join(BASE_DIR, ".env")):
     # reading .env file
-    environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+    environ.Env.read_env(os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 
 # Application definition
-
 INSTALLED_APPS = [
     "home",
     "geomanager",
-
     "daphne",
     "channels",
     "base",
-
     "django_deep_translator",
     "adminboundarymanager",
     "django_large_image",
-    'django_json_widget',
-    'django_nextjs',
+    "django_json_widget",
+    "django_nextjs",
     "django_filters",
     "wagtail_color_panel",
     "wagtail_adminsortable",
@@ -56,7 +53,6 @@ INSTALLED_APPS = [
     "wagtailfontawesomesvg",
     "wagtail_lazyimages",
     "django_cleanup.apps.CleanupConfig",
-
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.contrib.settings",
@@ -69,17 +65,16 @@ INSTALLED_APPS = [
     "wagtail.search",
     "wagtail.admin",
     "wagtail",
-
     "modelcluster",
     "taggit",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "rest_framework",
     "corsheaders",
     "wagtail_modeladmin",
     "wagtailcache",
     "wagtailmetadata",
-
     "django.contrib.admin",
     "django.contrib.gis",
     "django.contrib.auth",
@@ -99,7 +94,6 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "wagtail.contrib.redirects.middleware.RedirectMiddleware",
-
     "allauth.account.middleware.AccountMiddleware",
 ]
 
@@ -124,14 +118,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "geomanagerweb.wsgi.application"
-ASGI_APPLICATION = 'geomanagerweb.asgi.application'
+ASGI_APPLICATION = "geomanagerweb.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': env.db()
-}
+DATABASES = {"default": env.db()}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -165,7 +157,7 @@ USE_L10N = True
 USE_TZ = True
 
 # Django
-FORCE_SCRIPT_NAME = env.str("FORCE_SCRIPT_NAME", default=None)
+FORCE_SCRIPT_NAME = env.str("FORCE_SCRIPT_NAME", default="")
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
@@ -188,13 +180,13 @@ STATICFILES_STORAGE = "base.storage.ManifestStaticFilesStorageNotStrict"
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
-if FORCE_SCRIPT_NAME:
+if FORCE_SCRIPT_NAME != "":
     STATIC_URL = FORCE_SCRIPT_NAME + STATIC_URL
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
-if FORCE_SCRIPT_NAME:
+if FORCE_SCRIPT_NAME != "":
     MEDIA_URL = FORCE_SCRIPT_NAME + MEDIA_URL
 
 # Wagtail settings
@@ -211,26 +203,26 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = env.str('WAGTAILADMIN_BASE_URL', '')
+WAGTAILADMIN_BASE_URL = env.str("WAGTAILADMIN_BASE_URL", "")
 
 # Wagtail admin Url path
 ADMIN_URL_PATH = env.str("ADMIN_URL_PATH", "admin")
 
-NEXTJS_SETTINGS = {
-    "nextjs_server_url": env.str('MAPVIEWER_SERVER_URL', None)
-}
+NEXTJS_SETTINGS = {"nextjs_server_url": env.str("MAPVIEWER_SERVER_URL", None)}
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': os.path.join(BASE_DIR, 'cache'),
-        'KEY_PREFIX': 'cms_cache',
-        'TIMEOUT': 3600,  # one hour (in seconds)
+    "default": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": os.path.join(BASE_DIR, "cache"),
+        "KEY_PREFIX": "cms_cache",
+        "TIMEOUT": 3600,  # one hour (in seconds)
     }
 }
 
 # RECAPTCHA Settings
-RECAPTCHA_PUBLIC_KEY = env.str('RECAPTCHA_PUBLIC_KEY', '')
-RECAPTCHA_PRIVATE_KEY = env.str('RECAPTCHA_PRIVATE_KEY', '')
+RECAPTCHA_PUBLIC_KEY = env.str("RECAPTCHA_PUBLIC_KEY", "")
+RECAPTCHA_PRIVATE_KEY = env.str("RECAPTCHA_PRIVATE_KEY", "")
 
-GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = env.str("GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR", "")
+GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR = env.str(
+    "GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR", ""
+)

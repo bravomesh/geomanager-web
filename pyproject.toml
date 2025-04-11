@@ -1,0 +1,37 @@
+[project]
+name = "geomanager-web"
+version = "0.5.4"
+description = "A wraper package for geomanager and geomapviewer"
+authors = [
+    {name = "Erick Otenyo",email = "otenyo.erick@gmail.com"},
+    {name = "Jason Kinyua",email = "jaysnmury@gmail.com"}
+]
+license = {text = "CC BY 4.0"}
+readme = "README.md"
+requires-python = ">=3.10,<4"
+dependencies = [
+    "channels (==4.0.0)",
+    "daphne (==4.0.0)",
+    "django (==4.2.8)",
+    "django-cleanup (==8.0.0)",
+    "django-cors-headers (==4.3.1)",
+    "django-deep-translator (==1.5.1)",
+    "django-environ (==0.12.0)",
+    "psycopg2-binary (==2.9.9)",
+    "pymemcache (==4.0.0)",
+    "wagtail-lazyimages (==0.1.5)",
+    "wagtail-metadata (==5.0.0)",
+    "geomanager @ git+https://github.com/icpac-igad/geomanager.git@main",
+    "wagtail-adminsortable @ git+https://github.com/wmo-raf/wagtail-admin-sortable.git@master",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.11.5"
+black = "^25.1.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
