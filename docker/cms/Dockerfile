@@ -7,6 +7,7 @@ FROM ghcr.io/osgeo/gdal:ubuntu-small-3.7.0
 # install dependencies
 RUN apt-get update && apt-get install -y \
     cron \
+    git \
     libgeos-dev \
     imagemagick \
     libmagic1 \
@@ -23,8 +24,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg m
     && apt-get install -y postgresql-client-15
 
 # set python env
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1
 
 # install docker-compose wait
 ADD https://github.com/ufoscout/docker-compose-wait/releases/download/2.12.0/wait /wait
@@ -38,14 +38,14 @@ RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
 # copy requirements
-COPY ./requirements.txt $APP_HOME
+COPY ./pyproject.toml ./poetry.lock ./README.md $APP_HOME/
 
 # install requirements
 RUN --mount=type=cache,target=/root/.cache  \
     pip install --upgrade pip \
     && pip install gunicorn \
     && pip install uvicorn \
-    && pip install -r requirements.txt
+    && pip install -e .
 
 # copy code
 COPY . $APP_HOME
