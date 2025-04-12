@@ -26,9 +26,7 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [
-    { include = "geomanager-web", from = "geomanagerweb" }
-]
+package-mode = false
 
 [tool.poetry.group.dev.dependencies]
 ruff = "^0.11.5"

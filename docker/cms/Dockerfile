@@ -1,8 +1,24 @@
+# --------- requirements ---------
+ARG GDAL_VERSION=3.7.0
+FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION} AS builder
+
+RUN apt-get update && apt-get install -y cron git libgeos-dev python3-pip --fix-missing
+
+WORKDIR /tmp
+
+RUN pip install poetry poetry-plugin-export
+
+COPY ./pyproject.toml ./poetry.lock* ./README.md /tmp/
+
+RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
+
+
 # syntax = docker/dockerfile:1.5
 
 # use osgeo gdal ubuntu small 3.7 image.
 # pre-installed with GDAL 3.7.0 and Python 3.10.6
-FROM ghcr.io/osgeo/gdal:ubuntu-small-3.7.0
+ARG GDAL_VERSION=3.7.0
+FROM ghcr.io/osgeo/gdal:ubuntu-small-${GDAL_VERSION} AS runnner
 
 # install dependencies
 RUN apt-get update && apt-get install -y \
@@ -38,14 +54,14 @@ RUN mkdir -p $APP_HOME
 WORKDIR $APP_HOME
 
 # copy requirements
-COPY ./pyproject.toml ./poetry.lock ./README.md $APP_HOME/
+COPY --from=builder /tmp/requirements.txt ${APP_HOME}
 
 # install requirements
 RUN --mount=type=cache,target=/root/.cache  \
     pip install --upgrade pip \
     && pip install gunicorn \
     && pip install uvicorn \
-    && pip install -e .
+    && pip install -r requirements.txt
 
 # copy code
 COPY . $APP_HOME
