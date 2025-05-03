@@ -26,6 +26,69 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fira+Sans:300,300i,400,400i,500,500i">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="{% static 'css/geomanagerweb.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* Ensure footer stays at bottom */
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        
+        .content-wrapper {
+            flex: 1;
+            padding-bottom: 2rem; /* Add space above footer */
+        }
+        
+        /* Footer styles */
+        .footer {
+            background-color: #198754;
+            padding: 3rem 1.5rem;
+            color: white;
+            margin-top: auto; /* Push to bottom */
+        }
+        
+        .footer a {
+            color: #efefef;
+            transition: color 0.3s ease;
+        }
+        
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .footer ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .footer li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .footer .columns {
+                flex-direction: column;
+            }
+            
+            .footer .column {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            
+            .footer {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
 
     {% block extra_css %}
     {# Override this in templates to add extra stylesheets #}
@@ -33,23 +96,77 @@
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
-{% include "geomanager/navbar.html" %}
-<style>
-    .navbar-logo img {
+    {% include "geomanager/navbar.html" %}
 
-    }
-</style>
+    {% wagtailuserbar %}
 
-{% wagtailuserbar %}
+    <div class="content-wrapper">
+        {% block content %}{% endblock %}
+    </div>
 
-{% block content %}{% endblock %}
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="columns is-multiline">
+                <!-- Organization Info -->
+                <div class="column is-one-quarter">
+                    <h4 class="has-text-weight-bold" style="color: #fff; margin-bottom: 1rem;">East Africa Multi-Hazards Watch</h4>
+                    <p style="color: #efefef;">A geospatial platform for visualizing climate and hazard data across East Africa to support evidence-based decision making.</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="column is-one-quarter">
+                    <h4 class="has-text-weight-bold" style="color: #fff; margin-bottom: 1rem;">Quick Links</h4>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin-bottom: 0.5rem;"><a href="/mapviewer/" style="color: #efefef;">MapViewer</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://icpac.net/" style="color: #efefef;">About ICPAC</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://geoportal.icpac.net/" style="color: #efefef;">Datasets</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="https://www.icpac.net/contact-us/" style="color: #efefef;">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="column is-one-quarter">
+                    <h4 class="has-text-weight-bold" style="color: #fff; margin-bottom: 1rem;">Contact</h4>
+                    <p style="color: #efefef; margin-bottom: 0.5rem;"><i class="fas fa-map-marker-alt" style="margin-right: 8px;"></i> ICPAC Headquarters</p>
+                    <p style="color: #efefef; margin-bottom: 0.5rem;"><i class="fas fa-map-marker-alt" style="margin-right: 8px; visibility: hidden;"></i> Ngong Town, K840-A Road</p>
+                    <p style="color: #efefef; margin-bottom: 0.5rem;"><i class="fas fa-envelope" style="margin-right: 8px;"></i> info@icpac.net</p>
+                </div>
+                
+                <!-- About ICPAC -->
+                <div class="column is-one-quarter">
+                    <h4 class="has-text-weight-bold" style="color: #fff; margin-bottom: 1rem;">About ICPAC</h4>
+                    <p style="color: #efefef;">
+                        The Climate Prediction and Applications Centre (ICPAC) provides climate services to enhance resilience in East Africa.
+                    </p>
+                    <p style="color: #efefef; margin-top: 0.5rem;">
+                        Our platform monitors and analyzes hazard events across the region.
+                    </p>
+                </div>
+            </div>
+            
+            <hr style="background-color: rgba(255,255,255,0.2); margin: 2rem 0;">
+            
+            <!-- Copyright Row -->
+            <div class="columns">
+                <div class="column is-full">
+                    <div class="content has-text-centered">
+                        <p style="color: #efefef;">
+                            © {% now "Y" %} East Africa Multi-Hazards Watch. All rights reserved.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- End of footer -->
 
-<script type="text/javascript" src="{% static 'js/progressively.js' %}"></script>
-<script type="text/javascript">
-    progressively.init()
-</script>
-{% block extra_js %}
-{# Override this in templates to add extra javascript #}
-{% endblock %}
+    <script type="text/javascript" src="{% static 'js/progressively.js' %}"></script>
+    <script type="text/javascript">
+        progressively.init()
+    </script>
+    {% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+    {% endblock %}
 </body>
 </html>
