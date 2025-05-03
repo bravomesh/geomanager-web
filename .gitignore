@@ -179,3 +179,5 @@ docker/volumes
 
 backup/
 data/
+
+requirements.txt
