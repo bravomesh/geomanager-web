@@ -27,6 +27,24 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+',
     )
+    banner_image_2 = models.ForeignKey(
+        'wagtailimages.Image',
+        verbose_name=_("Banner Image 2"),
+        help_text=_("Second slide image"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
+    banner_image_3 = models.ForeignKey(
+        'wagtailimages.Image',
+        verbose_name=_("Banner Image 3"),
+        help_text=_("Third slide image"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
     banner_title = models.CharField(max_length=255, verbose_name=_('Banner Title'))
     banner_subtitle = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('Banner Subtitle'))
 
@@ -71,9 +89,12 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
                 FieldPanel('banner_title'),
                 FieldPanel('banner_subtitle'),
                 FieldPanel('banner_image'),
+                FieldPanel('banner_image_2'),
+                FieldPanel('banner_image_3'),
             ],
             heading=_("Banner Section"),
         ),
+
 
         MultiFieldPanel(
             [
