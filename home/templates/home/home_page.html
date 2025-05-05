@@ -12,7 +12,8 @@
         color: #fbfdf9;
         padding: 10rem 0;
         position: relative;
-        overflow: hidden;
+        overflow: visible; /* Changed from hidden to visible */
+        margin-bottom: 0; /* Remove margin bottom */
     }
     .slideshow {
         position: absolute;
@@ -44,11 +45,11 @@
         text-shadow: 1px 2px 2px #555;
     }
     .banner-subtitle {
-        font-size: 18px;
-        line-height: 30px;
-        max-width: 48rem;
-        color: #fff;
-        text-shadow: 1px 1px 1px #555;
+        font-size: 25px;
+        line-height: 40px;
+        max-width: 58rem;
+        color: #ffffff;
+        text-shadow: 1px 1px 1px #3f3f3f;
     }
     .section-title {
         display: flex;
@@ -75,7 +76,8 @@
         display: flex;
         justify-content: center;
         width: 100%;
-        bottom: -20px
+        bottom: -20px; /* Positioned to overlap with the section below */
+        z-index: 100; /* Higher z-index to ensure it's on top */
     }
     .banner-arrow button {
         background-color: #198754;
@@ -84,6 +86,7 @@
         border-radius: 50%;
         border: none;
         cursor: pointer;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     .banner-arrow button svg {
         height: 15px;
@@ -94,6 +97,12 @@
     /* Layout styles */
     section:nth-child(even) { background-color: #f8f9fb; }
     .section { padding: 60px 0; }
+    .section:first-of-type { 
+        padding-top: 40px; /* Less padding on first section */
+        margin-top: 0; /* No top margin */
+        position: relative; /* For proper stacking */
+        z-index: 1; /* Lower than the arrow button */
+    }
     .info-section:nth-child(odd) .info-section-row { flex-direction: row-reverse !important; }
     
     /* Image styles */
@@ -200,21 +209,13 @@
 {% endblock %}
 
 {% block content %}
-    {% if page.banner_image %}
+    {% if page.banner_images.all %}
     <section class="hero hero-banner">
         <div class="slideshow">
-            {% image page.banner_image original as banner_img1 %}
-            <div class="slideshow-item active" style="background-image:url({{ banner_img1.url }});"></div>
-            
-            {% if page.banner_image_2 %}
-                {% image page.banner_image_2 original as banner_img2 %}
-                <div class="slideshow-item" style="background-image:url({{ banner_img2.url }});"></div>
-            {% endif %}
-            
-            {% if page.banner_image_3 %}
-                {% image page.banner_image_3 original as banner_img3 %}
-                <div class="slideshow-item" style="background-image:url({{ banner_img3.url }});"></div>
-            {% endif %}
+            {% for banner_item in page.banner_images.all %}
+                {% image banner_item.image original as banner_img %}
+                <div class="slideshow-item {% if forloop.first %}active{% endif %}" style="background-image:url({{ banner_img.url }});"></div>
+            {% endfor %}
         </div>
         
         <div class="hero-body" style="display:flex;align-items:center">
@@ -238,7 +239,7 @@
     </section>
     {% endif %}
 
-    {% if page.intro_img %}
+    {% if page.intro_image %}
     <section class="section">
         <div class="container">
             <div class="columns is-mobile is-multiline">
@@ -323,6 +324,17 @@
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
             }, 5000);
+        }
+        
+        // Scroll to content when arrow is clicked
+        const arrowButton = document.querySelector('.banner-arrow button');
+        if (arrowButton) {
+            arrowButton.addEventListener('click', function() {
+                const nextSection = document.querySelector('.hero-banner').nextElementSibling;
+                if (nextSection) {
+                    nextSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
         }
     });
 </script>
