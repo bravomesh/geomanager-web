@@ -67,6 +67,35 @@
         .icon-spacing {
             margin-right: 8px;
         }
+        .footer-divider {
+            background-color: rgba(255,255,255,0.2);
+            margin: 2rem 0;
+            height: 1px;
+        }
+        .copyright {
+            color: #efefef;
+            font-size: 0.9rem;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        .social-icon {
+            color: #efefef;
+            font-size: 1.1rem;
+        }
+        .social-icon:hover {
+            color: white;
+        }
+        .feedback-button .button {
+            border-color: white;
+            color: white;
+            background-color: rgba(255,255,255,0.2);
+        }
+        .feedback-button .button:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
         @media screen and (max-width: 768px) {
             .footer .columns { flex-direction: column; }
             .footer .column {
@@ -74,6 +103,13 @@
                 margin-bottom: 1.5rem;
             }
             .footer { padding: 2rem 1rem; }
+            .social-icons {
+                justify-content: center;
+                margin-top: 1rem;
+            }
+            .copyright {
+                text-align: center;
+            }
         }
     </style>
     {% block extra_css %}{% endblock %}
@@ -90,39 +126,73 @@
     <footer class="footer">
         <div class="container">
             <div class="columns is-multiline">
+                <!-- Logo and description section -->
                 <div class="column is-one-quarter">
-                    <h4 class="footer-heading">East Africa Multi-Hazards Watch</h4>
-                    <p class="footer-text">A geospatial platform for visualizing climate and hazard data across East Africa to support evidence-based decision making.</p>
+                    <img src="{% static 'images/ICPAC_Logo_White.svg' %}" alt="ICPAC Logo" class="footer-logo" style="max-width:150px;margin-bottom:1rem;"> 
+                    <p class="footer-text">ICPAC is a designated Regional Climate Centre by WMO</p>
                 </div>
                 
+                <!-- SERVICES section -->
                 <div class="column is-one-quarter">
-                    <h4 class="footer-heading">Quick Links</h4>
+                    <h4 class="footer-heading">SERVICES</h4>
                     <ul>
-                        <li><a href="/mapviewer/">MapViewer</a></li>
-                        <li><a href="https://icpac.net/">About ICPAC</a></li>
-                        <li><a href="https://geoportal.icpac.net/">Datasets</a></li>
-                        <li><a href="https://www.icpac.net/contact-us/">Contact Us</a></li>
+                        <li><a href="#">Agriculture and Food Security</a></li>
+                        <li><a href="#">Climate Forecasting and Early Warning</a></li>
+                        <li><a href="#">Capacity Development</a></li>
+                        <li><a href="#">Climate Change</a></li>
+                        <li><a href="#">Disaster Risk Mangement</a></li>
+                        <li><a href="#">Environmental Monitoring</a></li>
+                        <li><a href="#">Water Resources</a></li>
                     </ul>
                 </div>
                 
+                <!-- PRODUCTS AND DATA section -->
                 <div class="column is-one-quarter">
-                    <h4 class="footer-heading">Contact</h4>
-                    <p class="footer-text"><i class="fas fa-map-marker-alt icon-spacing"></i>ICPAC Headquarters</p>
-                    <p class="footer-text"><i class="fas fa-map-marker-alt icon-spacing" style="visibility:hidden"></i>Ngong Town, K840-A Road</p>
-                    <p class="footer-text"><i class="fas fa-envelope icon-spacing"></i>info@icpac.net</p>
+                    <h4 class="footer-heading">PRODUCTS AND DATA</h4>
+                    <ul>
+                        <li><a href="#">Drought Watch</a></li>
+                        <li><a href="#">Flood Watch</a></li>
+                        <li><a href="#">Pest Watch</a></li>
+                        <li><a href="#">Agriculture Watch</a></li>
+                        <li><a href="#">Climate monitoring</a></li>
+                        <li><a href="#">Food Security</a></li>
+                        <li><a href="#">Our Data</a></li>
+                        <li><a href="#">Open Data</a></li>
+                    </ul>
                 </div>
                 
+                <!-- ORGANISATION section -->
                 <div class="column is-one-quarter">
-                    <h4 class="footer-heading">About ICPAC</h4>
-                    <p class="footer-text">The Climate Prediction and Applications Centre (ICPAC) provides climate services to enhance resilience in East Africa.</p>
-                    <p class="footer-text" style="margin-top:0.5rem">Our platform monitors and analyzes hazard events across the region.</p>
+                    <h4 class="footer-heading">ORGANISATION</h4>
+                    <ul>
+                        <li><a href="#">About us</a></li>
+                        <li><a href="#">WMO Regional Climate Center</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Our Projects</a></li>
+                    </ul>
+                    <div class="feedback-button" style="margin-top:1.5rem;">
+                        <a href="#" class="button is-small is-outlined is-rounded">Give us feedback</a>
+                    </div>
                 </div>
             </div>
             
-            <hr style="background-color:rgba(255,255,255,0.2);margin:2rem 0">
+            <hr class="footer-divider">
             
-            <div class="content has-text-centered">
-                <p class="footer-text">© {% now "Y" %} East Africa Multi-Hazards Watch. All rights reserved.</p>
+            <!-- Copyright and social media section -->
+            <div class="columns">
+                <div class="column is-half">
+                    <p class="copyright">© ICPAC {% now "Y" %}</p>
+                </div>
+                <div class="column is-half">
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-icon"><i class="fas fa-podcast"></i></a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
