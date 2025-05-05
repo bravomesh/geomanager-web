@@ -2,23 +2,22 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from geomanager.models import Category
-from wagtail.admin.panels import FieldPanel, MultiFieldPanel
+from modelcluster.fields import ParentalKey
+from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail.api.v2.utils import get_full_url
 from wagtail.fields import RichTextField, StreamField
-from wagtail.models import Page
+from wagtail.models import Page, Orderable
 from wagtailcache.cache import WagtailCacheMixin
 from wagtailmetadata.models import MetadataPageMixin
 
 from .blocks import InfoBlock, FeatureBlock
 
 
-class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
-    template = "home/home_page.html"
-    parent_page_type = ["wagtailcore.Page"]
-    subpage_types = []
-    max_count = 1
-
-    banner_image = models.ForeignKey(
+class BannerImage(Orderable):
+    """A banner image for the home page."""
+    id = models.BigAutoField(primary_key=True)  #specify the primary key
+    page = ParentalKey('HomePage', related_name='banner_images')
+    image = models.ForeignKey(
         'wagtailimages.Image',
         verbose_name=_("Banner Image"),
         help_text=_("A high quality banner image"),
@@ -27,24 +26,18 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
         on_delete=models.SET_NULL,
         related_name='+',
     )
-    banner_image_2 = models.ForeignKey(
-        'wagtailimages.Image',
-        verbose_name=_("Banner Image 2"),
-        help_text=_("Second slide image"),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
-    banner_image_3 = models.ForeignKey(
-        'wagtailimages.Image',
-        verbose_name=_("Banner Image 3"),
-        help_text=_("Third slide image"),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name='+',
-    )
+    
+    panels = [
+        FieldPanel('image'),
+    ]
+
+
+class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
+    template = "home/home_page.html"
+    parent_page_type = ["wagtailcore.Page"]
+    subpage_types = []
+    max_count = 1
+
     banner_title = models.CharField(max_length=255, verbose_name=_('Banner Title'))
     banner_subtitle = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('Banner Subtitle'))
 
@@ -63,7 +56,6 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
     info_blocks = StreamField(
         [
             ("info", InfoBlock(label=_("Info"))),
-
         ],
         null=True,
         blank=True,
@@ -74,7 +66,6 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
     feature_blocks = StreamField(
         [
             ("feature", FeatureBlock(label=_("Feature")),),
-
         ],
         null=True,
         blank=True,
@@ -83,19 +74,14 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
     )
 
     content_panels = Page.content_panels + [
-
         MultiFieldPanel(
             [
                 FieldPanel('banner_title'),
                 FieldPanel('banner_subtitle'),
-                FieldPanel('banner_image'),
-                FieldPanel('banner_image_2'),
-                FieldPanel('banner_image_3'),
+                InlinePanel('banner_images', label=_("Banner Images"), max_num=10),
             ],
             heading=_("Banner Section"),
         ),
-
-
         MultiFieldPanel(
             [
                 FieldPanel('intro_text'),
@@ -103,7 +89,6 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
             ],
             heading=_("Introduction Section"),
         ),
-
         FieldPanel('info_blocks'),
         FieldPanel('feature_blocks'),
     ]
