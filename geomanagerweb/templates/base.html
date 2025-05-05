@@ -69,7 +69,7 @@
         }
         .footer-divider {
             background-color: rgba(255,255,255,0.2);
-            margin: 2rem 0;
+            margin: 1.5rem 0;  /* Reduced margin */
             height: 1px;
         }
         .copyright {
@@ -102,7 +102,7 @@
                 width: 100%;
                 margin-bottom: 1.5rem;
             }
-            .footer { padding: 2rem 1rem; }
+            .footer { padding: 1.5rem 1rem; }  /* Further reduced on mobile */
             .social-icons {
                 justify-content: center;
                 margin-top: 1rem;
@@ -129,20 +129,20 @@
                 <!-- Logo and description section -->
                 <div class="column is-one-quarter">
                     <img src="{% static 'images/ICPAC_Logo_White.svg' %}" alt="ICPAC Logo" class="footer-logo" style="max-width:150px;margin-bottom:1rem;"> 
-                    <p class="footer-text">ICPAC is a designated Regional Climate Centre by WMO</p>
+                    <p class="footer-text">East Africa Hazards Watch</p>
                 </div>
                 
                 <!-- SERVICES section -->
                 <div class="column is-one-quarter">
                     <h4 class="footer-heading">SERVICES</h4>
                     <ul>
-                        <li><a href="#">Agriculture and Food Security</a></li>
-                        <li><a href="#">Climate Forecasting and Early Warning</a></li>
-                        <li><a href="#">Capacity Development</a></li>
-                        <li><a href="#">Climate Change</a></li>
-                        <li><a href="#">Disaster Risk Mangement</a></li>
-                        <li><a href="#">Environmental Monitoring</a></li>
-                        <li><a href="#">Water Resources</a></li>
+                        <li><a href="https://www.icpac.net/agriculture-and-food-security/">Agriculture and Food Security</a></li>
+                        <li><a href="https://www.icpac.net/climate-forecasting/">Climate Forecasting and Early Warning</a></li>
+                        <li><a href="https://www.icpac.net/capacity-development/">Capacity Development</a></li>
+                        <li><a href="https://www.icpac.net/climate-change/">Climate Change</a></li>
+                        <li><a href="https://www.icpac.net/disaster-risk-management/">Disaster Risk Mangement</a></li>
+                        <li><a href="https://www.icpac.net/environmental-monitoring/">Environmental Monitoring</a></li>
+                        <li><a href="https://www.icpac.net/water-resources/">Water Resources</a></li>
                     </ul>
                 </div>
                 
@@ -150,14 +150,14 @@
                 <div class="column is-one-quarter">
                     <h4 class="footer-heading">PRODUCTS AND DATA</h4>
                     <ul>
-                        <li><a href="#">Drought Watch</a></li>
-                        <li><a href="#">Flood Watch</a></li>
-                        <li><a href="#">Pest Watch</a></li>
-                        <li><a href="#">Agriculture Watch</a></li>
-                        <li><a href="#">Climate monitoring</a></li>
-                        <li><a href="#">Food Security</a></li>
-                        <li><a href="#">Our Data</a></li>
-                        <li><a href="#">Open Data</a></li>
+                        <li><a href="https://droughtwatch.icpac.net/mapviewer/">Drought Watch</a></li>
+                        <li><a href="http://197.254.1.10:8094/">Flood Watch</a></li>
+                        <li><a href="http://41.220.118.182:3000/">Pest Watch</a></li>
+                        <li><a href="https://agriculturehotspots.icpac.net/">Agriculture Watch</a></li>
+                        <li><a href="https://www.icpac.net/climate-monitoring/">Climate monitoring</a></li>
+                        <li><a href="https://www.icpac.net/fsnwg/">Food Security</a></li>
+                        <li><a href="https://www.icpac.net/data-center/">Our Data</a></li>
+                        <li><a href="https://www.icpac.net/open-data-sources/">Open Data</a></li>
                     </ul>
                 </div>
                 
@@ -165,13 +165,13 @@
                 <div class="column is-one-quarter">
                     <h4 class="footer-heading">ORGANISATION</h4>
                     <ul>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">WMO Regional Climate Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Our Projects</a></li>
+                        <li><a href="https://www.icpac.net/about-us/">About us</a></li>
+                        <li><a href="https://public.wmo.int/en">WMO Regional Climate Center</a></li>
+                        <li><a href="https://www.icpac.net/contact-us/">Contact Us</a></li>
+                        <li><a href="https://www.icpac.net/our-projects/">Our Projects</a></li>
                     </ul>
                     <div class="feedback-button" style="margin-top:1.5rem;">
-                        <a href="#" class="button is-small is-outlined is-rounded">Give us feedback</a>
+                        <a href="https://www.icpac.net/feedback/" class="button is-small is-outlined is-rounded">Give us feedback</a>
                     </div>
                 </div>
             </div>
@@ -185,12 +185,11 @@
                 </div>
                 <div class="column is-half">
                     <div class="social-icons">
-                        <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-icon"><i class="fab fa-github"></i></a>
-                        <a href="#" class="social-icon"><i class="fas fa-podcast"></i></a>
+                        <a href="https://www.facebook.com/ICPACigad/" class="social-icon"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://twitter.com/icpac_igad" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.youtube.com/channel/UCoiL8Xk0_55BtXNBgEO4pRA?view_as=subscriber" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://github.com/icpac-igad" class="social-icon"><i class="fab fa-github"></i></a>
+                        <a href="https://podcasts.google.com/u/1/b/101015309335939692066/search/icpac" class="social-icon"><i class="fas fa-podcast"></i></a>
                     </div>
                 </div>
             </div>
