@@ -106,4 +106,4 @@ as `docker-compose.yml` file
 | GOOGLE_CUSTOM_SEARCH_CX      |                                                                                                                                                                                      | NO       |                                         |
 | GOOGLE_SEARCH_API_KEY        |                                                                                                                                                                                      | NO       |                                         |
 
-##                            
+##  

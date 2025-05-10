@@ -12,15 +12,13 @@ ADMIN_URL_PATH = getattr(settings, "ADMIN_URL_PATH", None)
 
 urlpatterns = [
     path("documents/", include(wagtaildocs_urls)),
-
     # geomanager urls
     path("", include("geomanager.urls"), name="geomanager"),
-
 ]
 
 if ADMIN_URL_PATH:
     ADMIN_URL_PATH = ADMIN_URL_PATH.strip("/")
-    urlpatterns += path(f"{ADMIN_URL_PATH}/", include(wagtailadmin_urls), name='admin'),
+    urlpatterns += (path(f"{ADMIN_URL_PATH}/", include(wagtailadmin_urls), name="admin"),)
 
 if settings.DEBUG:
     from django.conf.urls.static import static
@@ -31,13 +29,12 @@ if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
     # add django-admin url
-    urlpatterns += path("django-admin/", admin.site.urls),
+    urlpatterns += (path("django-admin/", admin.site.urls),)
 
 urlpatterns = urlpatterns + [
     # For anything not caught by a more specific rule above, hand over to
     # Wagtail's page serving mechanism. This should be the last pattern in
     # the list:
-
     # Copied from wagtail.urls for compatibility with wagtail-cache. See wagtail-cache documentation
     path(
         "_util/authenticate_with_password/<int:page_view_restriction_id>/<int:page_id>/",
@@ -49,10 +46,8 @@ urlpatterns = urlpatterns + [
         auth_views.LoginView.as_view(template_name=WAGTAIL_FRONTEND_LOGIN_TEMPLATE),
         name="wagtailcore_login",
     ),
-
     # Front-end page views are handled through Wagtail's core.views.serve
     # mechanism
     # Custom wagtail pages serving with cache implements from wagtail-cache page
     re_path(serve_pattern, cache_page(wagtail_views.serve), name="wagtail_serve"),
-
 ]

@@ -5,11 +5,24 @@ from wagtailiconchooser.blocks import IconChooserBlock
 
 
 class InfoBlock(blocks.StructBlock):
-    title = blocks.CharBlock(max_length=100, label=_('Section Title'),
-                             help_text=_("Section title"), )
-    description = blocks.CharBlock(max_length=150, required=False, label=_('Section Description'), )
+    title = blocks.CharBlock(
+        max_length=100,
+        label=_("Section Title"),
+        help_text=_("Section title"),
+    )
+    description = blocks.CharBlock(
+        max_length=150,
+        required=False,
+        label=_("Section Description"),
+    )
 
-    items = blocks.ListBlock(blocks.CharBlock(max_length=150, label=_('Item'), ), label=_('Items'))
+    items = blocks.ListBlock(
+        blocks.CharBlock(
+            max_length=150,
+            label=_("Item"),
+        ),
+        label=_("Items"),
+    )
     image = ImageChooserBlock()
 
     class Meta:
@@ -19,6 +32,12 @@ class InfoBlock(blocks.StructBlock):
 
 
 class FeatureBlock(blocks.StructBlock):
-    title = blocks.CharBlock(max_length=100, label=_('Title'), )
+    title = blocks.CharBlock(
+        max_length=100,
+        label=_("Title"),
+    )
     icon = IconChooserBlock(label=_("Icon"))
-    description = blocks.CharBlock(max_length=150, label=_('Description'), )
+    description = blocks.CharBlock(
+        max_length=150,
+        label=_("Description"),
+    )

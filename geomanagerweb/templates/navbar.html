@@ -75,7 +75,7 @@
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
     padding: 0;
   }
-  
+
   /* Container fluid to bring logo closer to edge */
   .container.is-fluid {
     padding-left: 12px;
@@ -83,7 +83,7 @@
     display: flex;
     align-items: center;
   }
-  
+
   /* Logo styling with increased size */
   .logo {
     display: flex;
@@ -91,21 +91,21 @@
     padding: 0.5rem 0;
     margin-right: 2rem;
   }
-  
+
   .logo img {
     max-height: 45px; /* Increased from 3.5rem */
     width: auto;
     transition: all 0.3s ease;
   }
-  
+
   @media screen and (min-width: 1024px) {
     .logo img {
       max-height: 56px; /* Even larger on desktop */
     }
   }
-  
+
   /* DROUGHT WATCH-style main navbar items */
-  .navbar-item.nav-main-item, 
+  .navbar-item.nav-main-item,
   .navbar-link.nav-main-item {
     color: white !important;
     font-weight: 600;
@@ -116,16 +116,16 @@
     text-transform: uppercase;
     transition: background-color 0.3s;
   }
-  
+
   /* Special highlighting for active or hovered items */
-  .navbar-item.nav-main-item:hover, 
+  .navbar-item.nav-main-item:hover,
   .navbar-link.nav-main-item:hover,
   .navbar-item.nav-main-item.is-active,
   .navbar-link.nav-main-item.is-active {
     background-color: rgba(255, 255, 255, 0.15) !important;
     color: white !important;
   }
-  
+
   /* Optional: special styling for MAPVIEWER button like in the example */
   .navbar-item.nav-main-item.mapviewer {
     background-color: #ffb800 !important;
@@ -135,97 +135,97 @@
     padding: 0.65rem 1.25rem;
     font-weight: 700;
   }
-  
+
   .navbar-item.nav-main-item.mapviewer:hover {
     background-color: #ffc933 !important;
   }
-  
+
   .navbar-item {
     color: white !important;
     padding: 0.75rem 1rem;
     background-color: transparent !important;
   }
-  
+
   /* Dropdown styling */
   .navbar-dropdown {
     background-color: #034930;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   }
-  
+
   .navbar-dropdown .navbar-item {
     padding: 0.75rem 1.5rem;
     color: white !important;
   }
-  
+
   .navbar-dropdown .navbar-item:hover {
     background-color: rgba(255, 255, 255, 0.1) !important;
   }
-  
+
   .navbar-link {
     color: white !important;
     font-weight: 600;
     padding: 0.75rem 1.25rem;
     background-color: transparent !important;
   }
-  
+
   .navbar-link::after {
     border-color: white;
   }
-  
+
   /* Custom burger menu styling */
   .navbar-burger {
     color: white;
     height: 4.5rem;
     width: 4.5rem;
   }
-  
+
   .navbar-burger span {
     background-color: white;
     height: 2px;
     width: 20px;
   }
-  
+
   .navbar-burger:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   .navbar-menu {
     background-color: #034930;
     box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
     padding: 0;
   }
-  
+
   .navbar-menu.is-active {
     display: block;
   }
-  
+
   /* Add padding to the body to account for taller fixed navbar */
   body {
     padding-top: 4.5rem;
   }
-  
+
   /* Media queries for responsive design */
   @media screen and (max-width: 1023px) {
     .navbar-menu {
       padding: 0;
     }
-    
+
     .navbar-item.nav-main-item,
     .navbar-link.nav-main-item {
       text-align: center;
       padding: 1rem;
     }
-    
+
     .navbar-dropdown .navbar-item {
       padding-left: 2.5rem;
       text-align: center;
     }
-    
+
     .container.is-fluid {
       padding-left: 8px;
     }
-    
+
     .navbar-item.nav-main-item.mapviewer {
       margin: 0.5rem 2rem;
     }
@@ -236,23 +236,23 @@
   document.addEventListener('DOMContentLoaded', () => {
     // Get all "navbar-burger" elements
     const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-    
+
     // Add a click event on each of them
     $navbarBurgers.forEach(el => {
       el.addEventListener('click', () => {
         // Get the target from the "data-target" attribute
         const target = el.dataset.target;
         const $target = document.getElementById(target);
-        
+
         // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
         el.classList.toggle('is-active');
         $target.classList.toggle('is-active');
       });
     });
-    
+
     // Add mapviewer class to any menu item with "Mapviewer" or "Map" in the text
     document.querySelectorAll('.navbar-item').forEach(item => {
-      if (item.textContent.trim().toLowerCase().includes('mapviewer') || 
+      if (item.textContent.trim().toLowerCase().includes('mapviewer') ||
           item.textContent.trim().toLowerCase() === 'map') {
         item.classList.add('mapviewer');
       }

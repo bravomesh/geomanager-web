@@ -18,10 +18,8 @@ except ImportError:
 
 CORS_ALLOW_ALL_ORIGINS = True
 
-INSTALLED_APPS += [
-    'wagtail.contrib.styleguide'
-]
+INSTALLED_APPS += ["wagtail.contrib.styleguide"]
 
 # used in dev with Mac OS
-GDAL_LIBRARY_PATH = env.str('GDAL_LIBRARY_PATH', None)
-GEOS_LIBRARY_PATH = env.str('GEOS_LIBRARY_PATH', None)
+GDAL_LIBRARY_PATH = env.str("GDAL_LIBRARY_PATH", None)
+GEOS_LIBRARY_PATH = env.str("GEOS_LIBRARY_PATH", None)

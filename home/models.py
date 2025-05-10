@@ -15,20 +15,21 @@ from .blocks import InfoBlock, FeatureBlock
 
 class BannerImage(Orderable):
     """A banner image for the home page."""
-    id = models.BigAutoField(primary_key=True)  #specify the primary key
-    page = ParentalKey('HomePage', related_name='banner_images')
+
+    id = models.BigAutoField(primary_key=True)  # specify the primary key
+    page = ParentalKey("HomePage", related_name="banner_images")
     image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         verbose_name=_("Banner Image"),
         help_text=_("A high quality banner image"),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
-    
+
     panels = [
-        FieldPanel('image'),
+        FieldPanel("image"),
     ]
 
 
@@ -38,19 +39,24 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
     subpage_types = []
     max_count = 1
 
-    banner_title = models.CharField(max_length=255, verbose_name=_('Banner Title'))
-    banner_subtitle = models.CharField(max_length=255, blank=True, null=True, verbose_name=_('Banner Subtitle'))
+    banner_title = models.CharField(max_length=255, verbose_name=_("Banner Title"))
+    banner_subtitle = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Banner Subtitle"))
 
-    intro_text = RichTextField(blank=True, null=True, features=["bold"], verbose_name=_('Introduction text'),
-                               help_text=_("Introduction section description"))
+    intro_text = RichTextField(
+        blank=True,
+        null=True,
+        features=["bold"],
+        verbose_name=_("Introduction text"),
+        help_text=_("Introduction section description"),
+    )
     intro_image = models.ForeignKey(
-        'wagtailimages.Image',
+        "wagtailimages.Image",
         verbose_name=_("Introduction Image"),
         help_text=_("A high quality image"),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
-        related_name='+',
+        related_name="+",
     )
 
     info_blocks = StreamField(
@@ -65,7 +71,10 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
 
     feature_blocks = StreamField(
         [
-            ("feature", FeatureBlock(label=_("Feature")),),
+            (
+                "feature",
+                FeatureBlock(label=_("Feature")),
+            ),
         ],
         null=True,
         blank=True,
@@ -76,21 +85,21 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
     content_panels = Page.content_panels + [
         MultiFieldPanel(
             [
-                FieldPanel('banner_title'),
-                FieldPanel('banner_subtitle'),
-                InlinePanel('banner_images', label=_("Banner Images"), max_num=10),
+                FieldPanel("banner_title"),
+                FieldPanel("banner_subtitle"),
+                InlinePanel("banner_images", label=_("Banner Images"), max_num=10),
             ],
             heading=_("Banner Section"),
         ),
         MultiFieldPanel(
             [
-                FieldPanel('intro_text'),
-                FieldPanel('intro_image'),
+                FieldPanel("intro_text"),
+                FieldPanel("intro_image"),
             ],
             heading=_("Introduction Section"),
         ),
-        FieldPanel('info_blocks'),
-        FieldPanel('feature_blocks'),
+        FieldPanel("info_blocks"),
+        FieldPanel("feature_blocks"),
     ]
 
     def get_context(self, request, *args, **kwargs):

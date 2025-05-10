@@ -6,7 +6,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("home", "0002_homepage_banner_image_2_homepage_banner_image_3"),
         ("wagtailimages", "0027_image_description"),

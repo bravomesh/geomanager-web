@@ -35,7 +35,7 @@
         background-position: center;
     }
     .slideshow-item.active { opacity: 1; }
-    
+
     /* Text styles */
     .banner-title {
         font-size: 50px;
@@ -63,7 +63,7 @@
         font-size: 24px;
         color: #198754;
     }
-    
+
     /* Button styles */
     .map-btn {
         margin-top: 20px;
@@ -93,18 +93,18 @@
         width: 15px;
         fill: #fff;
     }
-    
+
     /* Layout styles */
     section:nth-child(even) { background-color: #f8f9fb; }
     .section { padding: 60px 0; }
-    .section:first-of-type { 
+    .section:first-of-type {
         padding-top: 40px; /* Less padding on first section */
         margin-top: 0; /* No top margin */
         position: relative; /* For proper stacking */
         z-index: 1; /* Lower than the arrow button */
     }
     .info-section:nth-child(odd) .info-section-row { flex-direction: row-reverse !important; }
-    
+
     /* Image styles */
     .intro-image {
         height: 360px;
@@ -126,7 +126,7 @@
         object-fit: cover;
         border-radius: 8px;
     }
-    
+
     /* Feature styles */
     .feature-icon-fill { background-color: #198754; }
     .feature-icon {
@@ -151,10 +151,10 @@
         text-align: center;
         color: #999;
     }
-    
+
     /* Category styles */
     .category-map-link { color: #198754; }
-    .category-map-link:hover, 
+    .category-map-link:hover,
     .category-map-link:hover svg {
         color: #0a5434;
         fill: #0a5434;
@@ -174,7 +174,7 @@
         font-weight: 500;
         color: #fff;
     }
-    
+
     /* Info section styles */
     .info-description {
         padding-bottom: 20px;
@@ -217,15 +217,15 @@
                 <div class="slideshow-item {% if forloop.first %}active{% endif %}" style="background-image:url({{ banner_img.url }});"></div>
             {% endfor %}
         </div>
-        
+
         <div class="hero-body" style="display:flex;align-items:center">
             <div class="container">
                 <h1 class="title banner-title">{{ page.banner_title }}</h1>
-                
+
                 {% if page.banner_subtitle %}
                     <h2 class="banner-subtitle">{{ page.banner_subtitle }}</h2>
                 {% endif %}
-                
+
                 <a class="button is-rounded map-btn" href="/mapviewer/">Explore Map</a>
             </div>
         </div>
@@ -249,7 +249,7 @@
                 <div class="column is-flex is-align-items-center">
                     {% image page.intro_image original as intro_img %}
                     <figure class="intro-image">
-                        <img class="progressive__img progressive--not-loaded" 
+                        <img class="progressive__img progressive--not-loaded"
                              data-progressive="{{ intro_img.url }}"
                              src="{% lazy_image_url intro_img %}"
                              alt="{{ intro_img.alt }}"/>
@@ -325,7 +325,7 @@
                 slides[currentSlide].classList.add('active');
             }, 5000);
         }
-        
+
         // Scroll to content when arrow is clicked
         const arrowButton = document.querySelector('.banner-arrow button');
         if (arrowButton) {
