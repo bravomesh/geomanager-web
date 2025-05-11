@@ -1689,7 +1689,7 @@ files = [
 
 [[package]]
 name = "geomanager"
-version = "0.6.0"
+version = "0.6.1"
 description = "Wagtail based Geospatial Data Manager"
 optional = false
 python-versions = ">=3.9"
@@ -1732,7 +1732,7 @@ xarray = ">=2023.3.0"
 type = "git"
 url = "https://github.com/icpac-igad/geomanager.git"
 reference = "main"
-resolved_reference = "369c96eecdbb6bde7ced2b8ff39acb3d516ffb7a"
+resolved_reference = "c092d129d0b20dc008d0bc3b613399a597b8351f"
 
 [[package]]
 name = "geopandas"
