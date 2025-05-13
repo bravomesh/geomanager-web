@@ -1689,7 +1689,7 @@ files = [
 
 [[package]]
 name = "geomanager"
-version = "0.6.3"
+version = "0.6.4"
 description = "Wagtail based Geospatial Data Manager"
 optional = false
 python-versions = ">=3.9"
@@ -1732,7 +1732,7 @@ xarray = ">=2023.3.0"
 type = "git"
 url = "https://github.com/icpac-igad/geomanager.git"
 reference = "main"
-resolved_reference = "7e76a8235311adc185acef5ce5a0d202bf5e1be5"
+resolved_reference = "8ecf2392823a26b68d67c9c11c95a9118bb7adb8"
 
 [[package]]
 name = "geopandas"
@@ -1982,14 +1982,14 @@ testing = ["coverage (==7.3.4)", "dj-database-url (==2.1.0)"]
 
 [[package]]
 name = "large-image"
-version = "1.32.3"
+version = "1.32.4"
 description = "Python modules to work with large, multiresolution images."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "large_image-1.32.3-py3-none-any.whl", hash = "sha256:dc036ac1ad02ff6f1061e1f55fec20f2fe212e2275bc4ae860efb187d4fa26aa"},
-    {file = "large_image-1.32.3.tar.gz", hash = "sha256:691b92c4544456bc5fef29d337e7a8b3979e25351c9828547a18ca202680f5e4"},
+    {file = "large_image-1.32.4-py3-none-any.whl", hash = "sha256:9cd20b926b36b0f4e1fae9fa92e08e3fda63c1f8f65b40fb76c148ca3f0d3584"},
+    {file = "large_image-1.32.4.tar.gz", hash = "sha256:9239f2e3f573d629e0fe44155507bc05e84777110a4fc537f87dbcd4c0c75204"},
 ]
 
 [package.dependencies]
@@ -2000,74 +2000,74 @@ Pillow = ">=10.3"
 typing-extensions = "*"
 
 [package.extras]
-all = ["aiohttp", "ipyleaflet", "ipyvue", "large-image-converter (>=1.32.3)", "large-image-source-bioformats (>=1.32.3)", "large-image-source-deepzoom (>=1.32.3)", "large-image-source-dicom (>=1.32.3)", "large-image-source-dummy (>=1.32.3)", "large-image-source-gdal (>=1.32.3)", "large-image-source-mapnik (>=1.32.3)", "large-image-source-multi (>=1.32.3)", "large-image-source-multi[all] (>=1.32.3)", "large-image-source-nd2 (>=1.32.3)", "large-image-source-ometiff (>=1.32.3)", "large-image-source-openjpeg (>=1.32.3)", "large-image-source-openslide (>=1.32.3)", "large-image-source-pil (>=1.32.3)", "large-image-source-pil[all] (>=1.32.3)", "large-image-source-rasterio (>=1.32.3)", "large-image-source-rasterio[all] (>=1.32.3)", "large-image-source-test (>=1.32.3)", "large-image-source-tiff (>=1.32.3)", "large-image-source-tiff[all] (>=1.32.3)", "large-image-source-tifffile (>=1.32.3)", "large-image-source-vips (>=1.32.3)", "large-image-source-zarr (>=1.32.3)", "matplotlib", "psutil (>=4.2.0)", "pylibmc (>=1.5.1) ; platform_system != \"Windows\"", "pyvips", "redis (>=4.5.5)", "simplejpeg", "tol_colors"]
-bioformats = ["large-image-source-bioformats (>=1.32.3)"]
+all = ["aiohttp", "ipyleaflet", "ipyvue", "large-image-converter (>=1.32.4)", "large-image-source-bioformats (>=1.32.4)", "large-image-source-deepzoom (>=1.32.4)", "large-image-source-dicom (>=1.32.4)", "large-image-source-dummy (>=1.32.4)", "large-image-source-gdal (>=1.32.4)", "large-image-source-mapnik (>=1.32.4)", "large-image-source-multi (>=1.32.4)", "large-image-source-multi[all] (>=1.32.4)", "large-image-source-nd2 (>=1.32.4)", "large-image-source-ometiff (>=1.32.4)", "large-image-source-openjpeg (>=1.32.4)", "large-image-source-openslide (>=1.32.4)", "large-image-source-pil (>=1.32.4)", "large-image-source-pil[all] (>=1.32.4)", "large-image-source-rasterio (>=1.32.4)", "large-image-source-rasterio[all] (>=1.32.4)", "large-image-source-test (>=1.32.4)", "large-image-source-tiff (>=1.32.4)", "large-image-source-tiff[all] (>=1.32.4)", "large-image-source-tifffile (>=1.32.4)", "large-image-source-vips (>=1.32.4)", "large-image-source-zarr (>=1.32.4)", "matplotlib", "psutil (>=4.2.0)", "pylibmc (>=1.5.1) ; platform_system != \"Windows\"", "pyvips", "redis (>=4.5.5)", "simplejpeg", "tol_colors"]
+bioformats = ["large-image-source-bioformats (>=1.32.4)"]
 colormaps = ["matplotlib", "tol_colors"]
-common = ["large-image-source-deepzoom (>=1.32.3)", "large-image-source-dicom (>=1.32.3)", "large-image-source-multi (>=1.32.3)", "large-image-source-nd2 (>=1.32.3)", "large-image-source-openslide (>=1.32.3)", "large-image-source-pil[all] (>=1.32.3)", "large-image-source-rasterio[all] (>=1.32.3)", "large-image-source-test (>=1.32.3)", "large-image-source-tifffile (>=1.32.3)", "large-image-source-zarr (>=1.32.3)", "matplotlib", "psutil (>=4.2.0)", "simplejpeg", "tol_colors"]
-converter = ["large-image-converter (>=1.32.3)"]
-deepzoom = ["large-image-source-deepzoom (>=1.32.3)"]
-dicom = ["large-image-source-dicom (>=1.32.3)"]
-dummy = ["large-image-source-dummy (>=1.32.3)"]
-gdal = ["large-image-source-gdal (>=1.32.3)"]
+common = ["large-image-source-deepzoom (>=1.32.4)", "large-image-source-dicom (>=1.32.4)", "large-image-source-multi (>=1.32.4)", "large-image-source-nd2 (>=1.32.4)", "large-image-source-openslide (>=1.32.4)", "large-image-source-pil[all] (>=1.32.4)", "large-image-source-rasterio[all] (>=1.32.4)", "large-image-source-test (>=1.32.4)", "large-image-source-tifffile (>=1.32.4)", "large-image-source-zarr (>=1.32.4)", "matplotlib", "psutil (>=4.2.0)", "simplejpeg", "tol_colors"]
+converter = ["large-image-converter (>=1.32.4)"]
+deepzoom = ["large-image-source-deepzoom (>=1.32.4)"]
+dicom = ["large-image-source-dicom (>=1.32.4)"]
+dummy = ["large-image-source-dummy (>=1.32.4)"]
+gdal = ["large-image-source-gdal (>=1.32.4)"]
 jupyter = ["aiohttp", "ipyleaflet", "ipyvue"]
-mapnik = ["large-image-source-mapnik (>=1.32.3)"]
+mapnik = ["large-image-source-mapnik (>=1.32.4)"]
 memcached = ["pylibmc (>=1.5.1) ; platform_system != \"Windows\""]
-multi = ["large-image-source-multi (>=1.32.3)"]
-nd2 = ["large-image-source-nd2 (>=1.32.3)"]
-ometiff = ["large-image-source-ometiff (>=1.32.3)"]
-openjpeg = ["large-image-source-openjpeg (>=1.32.3)"]
-openslide = ["large-image-source-openslide (>=1.32.3)"]
+multi = ["large-image-source-multi (>=1.32.4)"]
+nd2 = ["large-image-source-nd2 (>=1.32.4)"]
+ometiff = ["large-image-source-ometiff (>=1.32.4)"]
+openjpeg = ["large-image-source-openjpeg (>=1.32.4)"]
+openslide = ["large-image-source-openslide (>=1.32.4)"]
 performance = ["psutil (>=4.2.0)", "simplejpeg"]
-pil = ["large-image-source-pil (>=1.32.3)"]
-rasterio = ["large-image-source-rasterio (>=1.32.3)"]
+pil = ["large-image-source-pil (>=1.32.4)"]
+rasterio = ["large-image-source-rasterio (>=1.32.4)"]
 redis = ["redis (>=4.5.5)"]
-sources = ["large-image-source-bioformats (>=1.32.3)", "large-image-source-deepzoom (>=1.32.3)", "large-image-source-dicom (>=1.32.3)", "large-image-source-dummy (>=1.32.3)", "large-image-source-gdal (>=1.32.3)", "large-image-source-mapnik (>=1.32.3)", "large-image-source-multi (>=1.32.3)", "large-image-source-nd2 (>=1.32.3)", "large-image-source-ometiff (>=1.32.3)", "large-image-source-openjpeg (>=1.32.3)", "large-image-source-openslide (>=1.32.3)", "large-image-source-pil (>=1.32.3)", "large-image-source-rasterio (>=1.32.3)", "large-image-source-test (>=1.32.3)", "large-image-source-tiff (>=1.32.3)", "large-image-source-tifffile (>=1.32.3)", "large-image-source-vips (>=1.32.3)", "large-image-source-zarr (>=1.32.3)"]
-test = ["large-image-source-test (>=1.32.3)"]
-tiff = ["large-image-source-tiff (>=1.32.3)"]
-tifffile = ["large-image-source-tifffile (>=1.32.3)"]
+sources = ["large-image-source-bioformats (>=1.32.4)", "large-image-source-deepzoom (>=1.32.4)", "large-image-source-dicom (>=1.32.4)", "large-image-source-dummy (>=1.32.4)", "large-image-source-gdal (>=1.32.4)", "large-image-source-mapnik (>=1.32.4)", "large-image-source-multi (>=1.32.4)", "large-image-source-nd2 (>=1.32.4)", "large-image-source-ometiff (>=1.32.4)", "large-image-source-openjpeg (>=1.32.4)", "large-image-source-openslide (>=1.32.4)", "large-image-source-pil (>=1.32.4)", "large-image-source-rasterio (>=1.32.4)", "large-image-source-test (>=1.32.4)", "large-image-source-tiff (>=1.32.4)", "large-image-source-tifffile (>=1.32.4)", "large-image-source-vips (>=1.32.4)", "large-image-source-zarr (>=1.32.4)"]
+test = ["large-image-source-test (>=1.32.4)"]
+tiff = ["large-image-source-tiff (>=1.32.4)"]
+tifffile = ["large-image-source-tifffile (>=1.32.4)"]
 tiledoutput = ["pyvips"]
-vips = ["large-image-source-vips (>=1.32.3)"]
-zarr = ["large-image-source-zarr (>=1.32.3)"]
+vips = ["large-image-source-vips (>=1.32.4)"]
+zarr = ["large-image-source-zarr (>=1.32.4)"]
 
 [[package]]
 name = "large-image-source-pil"
-version = "1.32.3"
+version = "1.32.4"
 description = "A Pillow tilesource for large_image."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "large_image_source_pil-1.32.3-py3-none-any.whl", hash = "sha256:b607913e060d4fea2c770f3f93770be06cd4041d18b0942edbe2a444926aa801"},
-    {file = "large_image_source_pil-1.32.3.tar.gz", hash = "sha256:9b1594787ae7a91f7989198b9b682a6d91ffcde6be7695e6c046c541bca67a5b"},
+    {file = "large_image_source_pil-1.32.4-py3-none-any.whl", hash = "sha256:744522020c89be15f75e0a9eee2c1342ea9d28bb5158d2fa49190635baeeb485"},
+    {file = "large_image_source_pil-1.32.4.tar.gz", hash = "sha256:74d94d49d0eee11b7d48eda2dd7aacf197e5870e73114f23f40e209552d5df54"},
 ]
 
 [package.dependencies]
-large-image = ">=1.32.3"
+large-image = ">=1.32.4"
 
 [package.extras]
 all = ["pillow-heif", "pillow-jpls", "pillow-jxl-plugin (<1.3) ; python_version < \"3.8\"", "pillow-jxl-plugin ; python_version >= \"3.9\"", "rawpy"]
-girder = ["girder-large-image (>=1.32.3)"]
+girder = ["girder-large-image (>=1.32.4)"]
 
 [[package]]
 name = "large-image-source-rasterio"
-version = "1.32.3"
+version = "1.32.4"
 description = "A rasterio tilesource for large_image."
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "large_image_source_rasterio-1.32.3-py3-none-any.whl", hash = "sha256:ce503e96d30de30c356e0acf5fd8896912dacc154e9335a69b7b7dabc43572de"},
-    {file = "large_image_source_rasterio-1.32.3.tar.gz", hash = "sha256:be9644df3107d028c64319a245400c99d839e6aae87b505d01bdb88f1b60c20e"},
+    {file = "large_image_source_rasterio-1.32.4-py3-none-any.whl", hash = "sha256:4b3c30d5fd710d156d6adb98b3ba376a7f27298c12039e3079191ed02e92ad2c"},
+    {file = "large_image_source_rasterio-1.32.4.tar.gz", hash = "sha256:bb4e8a852dc52fe3de01dbd0d583706c7a3d039b7c5a95056eea302e26a62358"},
 ]
 
 [package.dependencies]
-large-image = ">=1.32.3"
+large-image = ">=1.32.4"
 packaging = "*"
 rasterio = {version = ">=1.3", markers = "python_version >= \"3.9\""}
 
 [package.extras]
 all = ["rio-cogeo"]
-girder = ["girder-large-image (>=1.32.3)"]
+girder = ["girder-large-image (>=1.32.4)"]
 
 [[package]]
 name = "matplotlib"
