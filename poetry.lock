@@ -1732,7 +1732,7 @@ xarray = ">=2023.3.0"
 type = "git"
 url = "https://github.com/icpac-igad/geomanager.git"
 reference = "main"
-resolved_reference = "8ecf2392823a26b68d67c9c11c95a9118bb7adb8"
+resolved_reference = "2b9fb5329c0b88df851bffa5ae4a0f9773835c33"
 
 [[package]]
 name = "geopandas"
