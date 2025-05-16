@@ -1,9 +1,10 @@
 {% load static wagtailsettings_tags wagtailimages_tags %}
 {% get_settings use_default_site=True %}
 
-<!-- Navbar implementation styled like the Drought Watch example -->
+<!-- Updated Navbar with logo on left and truly centered menu items -->
 <nav id="navbar" class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
-  <div class="container is-fluid">
+  <div class="container">
+    <!-- Logo positioned on the left -->
     <div class="navbar-brand">
       {% with settings.geomanager.geomanagersettings as gm %}
         {% if gm.logo %}
@@ -17,15 +18,9 @@
           </a>
         {% endif %}
       {% endwith %}
-
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-         data-target="mainNavbar">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
     </div>
 
+    <!-- Properly centered menu items -->
     {% if settings.geomanager.geomanagersettings.navigation %}
       <div id="mainNavbar" class="navbar-menu">
         <div class="navbar-start">
@@ -33,10 +28,13 @@
             {% for menu_item in menu_item_block.value %}
               {% if menu_item.page.url or menu_item.external_link %}
                 {% if menu_item.children %}
-                  <!-- Dropdown menu item -->
+                  <!-- Dropdown menu item with enhanced hover effects -->
                   <div class="navbar-item has-dropdown is-hoverable">
                     <a class="navbar-link nav-main-item">
                       {{ menu_item.label }}
+                      <span class="dropdown-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                      </span>
                     </a>
                     <div class="navbar-dropdown">
                       {% for child in menu_item.children %}
@@ -64,11 +62,19 @@
         </div>
       </div>
     {% endif %}
+    
+    <!-- Mobile burger menu -->
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+       data-target="mainNavbar">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
   </div>
 </nav>
 
 <style>
-  /* Custom Navbar Styling based on Drought Watch */
+  /* Custom Navbar Styling with logo firmly on left and truly centered menu */
   .navbar {
     background-color: #034930;
     min-height: 4.5rem;
@@ -88,12 +94,12 @@
   .logo {
     display: flex;
     align-items: center;
-    padding: 0.5rem 0;
-    margin-right: 2rem;
+    padding: 0;
+    margin: 0;
   }
 
   .logo img {
-    max-height: 45px; /* Increased from 3.5rem */
+    max-height: 45px;
     width: auto;
     transition: all 0.3s ease;
   }
@@ -110,7 +116,7 @@
     color: white !important;
     font-weight: 600;
     font-size: 1.1rem;
-    padding: 0.75rem 1.5rem;
+    padding: 0.75rem 1.5rem; /* Reduced padding for better centering */
     background-color: transparent !important;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -178,12 +184,16 @@
     color: white;
     height: 4.5rem;
     width: 4.5rem;
+    display: none;
+    z-index: 5; /* Keep above menu */
+    margin-left: auto; /* Push to right */
   }
 
   .navbar-burger span {
     background-color: white;
     height: 2px;
     width: 20px;
+    transition: all 0.3s ease-in-out;
   }
 
   .navbar-burger:hover {
@@ -207,8 +217,42 @@
 
   /* Media queries for responsive design */
   @media screen and (max-width: 1023px) {
+    /* Adjust container padding on smaller screens */
+    .navbar .container {
+      padding-left: 2rem !important;
+      padding-right: 2rem !important;
+      justify-content: space-between; /* Adjust spacing for mobile */
+    }
+    
+    /* Mobile layout adjustments */
     .navbar-menu {
+      position: static; /* Reset absolute positioning on mobile */
+      pointer-events: auto;
+      display: none;
+      flex-grow: 0;
+    }
+    
+    .navbar-menu.is-active {
+      display: block;
+      position: absolute;
+      top: 4.5rem;
+      left: 0;
+      right: 0;
+      background-color: #034930;
       padding: 0;
+      box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
+      z-index: 10;
+    }
+    
+    .navbar-burger {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .navbar-start {
+      flex-direction: column;
+      justify-content: flex-start;
     }
 
     .navbar-item.nav-main-item,
@@ -228,6 +272,42 @@
 
     .navbar-item.nav-main-item.mapviewer {
       margin: 0.5rem 2rem;
+    }
+    
+    /* Mobile dropdown styling */
+    .navbar-dropdown {
+      position: static;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      display: none;
+      padding-left: 1.5rem;
+      box-shadow: none;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .navbar-item.has-dropdown.is-active .navbar-dropdown {
+      display: block;
+    }
+    
+    .navbar-link.nav-main-item {
+      justify-content: center;
+    }
+    
+    /* Reset Explore Map button margin on mobile */
+    .explore-map-btn {
+      margin-left: 2rem !important;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .navbar .container {
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+    }
+    
+    .explore-map-btn {
+      margin-left: 1rem !important;
     }
   }
 </style>
@@ -257,5 +337,28 @@
         item.classList.add('mapviewer');
       }
     });
+    
+    // Enhanced dropdown functionality for mobile
+    if (window.innerWidth <= 1023) {
+      const dropdownLinks = document.querySelectorAll('.navbar-link');
+      
+      dropdownLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const parent = link.parentElement;
+          
+          // Toggle is-active class on the parent item
+          parent.classList.toggle('is-active');
+          
+          // Toggle the dropdown icon rotation
+          const icon = link.querySelector('.dropdown-icon');
+          if (icon) {
+            icon.style.transform = parent.classList.contains('is-active') 
+              ? 'rotate(180deg)' 
+              : 'rotate(0)';
+          }
+        });
+      });
+    }
   });
 </script>
