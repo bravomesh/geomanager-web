@@ -1,3 +1,4 @@
+
 {% load static wagtailcore_tags wagtailuserbar %}
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +17,12 @@
     <meta name="description" content="{{ page.search_description }}"/>
     {% endif %}
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!-- Browser Tab Icon (Favicon) -->
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}" sizes="32x32">
+    <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}" sizes="16x16">
+    <link rel="apple-touch-icon" href="{% static 'images/logo.png' %}">
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}">
 
     {% if request.in_preview_panel %}<base target="_blank">{% endif %}
 
@@ -128,10 +135,10 @@
             <div class="columns is-multiline">
                 <!-- Logo and description section -->
                 <div class="column is-one-quarter">
-                    <img src="{% static 'images/ICPAC_Logo_White.svg' %}" alt="ICPAC Logo" class="footer-logo" style="max-width:150px;margin-bottom:1rem;">
+                    <img src="{% static 'images/ICPAC_Logo_White.svg' %}" alt="ICPAC Logo" class="footer-logo" style="max-width:150px;margin-bottom:1rem;"> 
                     <p class="footer-text">East Africa Hazards Watch - Monitoring and forecasting platform for East Africa</p>
                 </div>
-
+                
                 <!-- SERVICES section -->
                 <div class="column is-one-quarter">
                     <h2 class="footer-heading is-size-5">SERVICES</h2>
@@ -145,7 +152,7 @@
                         <li><a href="https://www.icpac.net/water-resources/" title="Water Resources Services">Water Resources</a></li>
                     </ul>
                 </div>
-
+                
                 <!-- PRODUCTS AND DATA section -->
                 <div class="column is-one-quarter">
                     <h2 class="footer-heading is-size-5">PRODUCTS AND DATA</h2>
@@ -160,7 +167,7 @@
                         <li><a href="https://www.icpac.net/open-data-sources/" title="ICPAC Open Data Sources">Open Data</a></li>
                     </ul>
                 </div>
-
+                
                 <!-- ORGANISATION section -->
                 <div class="column is-one-quarter">
                     <h2 class="footer-heading is-size-5">ORGANISATION</h2>
@@ -177,9 +184,9 @@
                     </div>
                 </div>
             </div>
-
+            
             <hr class="footer-divider">
-
+            
             <!-- Copyright and social media section -->
             <div class="columns">
                 <div class="column is-half">
