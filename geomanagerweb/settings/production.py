@@ -1,11 +1,5 @@
 from .base import *
-
-DEBUG = False
-
-try:
-    from .local import *
-except ImportError:
-    pass
+import sys
 
 WAGTAIL_ENABLE_UPDATE_CHECK = False
 
@@ -29,5 +23,48 @@ CACHES = {
         "LOCATION": env("MEMCACHED_URI", default=""),
         "KEY_PREFIX": "cms_cache",
         "TIMEOUT": 14400,  # 4 hours (in seconds)
+    },
+}
+# see https://docs.djangoproject.com/en/4.2/ref/middleware/#http-strict-transport-security
+SECURE_HSTS_SECONDS = 7776000  # 3 months
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "verbose": {
+            "format": "%(asctime)s %(name)-12s %(levelname)-8s %(message)s",
+        },
+    },
+    "handlers": {
+        "console_info": {
+            "level": "INFO",
+            "class": "logging.StreamHandler",
+            "stream": sys.stdout,
+            "formatter": "verbose",
+        },
+        "console_error": {
+            "level": "ERROR",
+            "class": "logging.StreamHandler",
+            "stream": sys.stderr,
+            "formatter": "verbose",
+        },
+        "file_handler": {
+            "level": "ERROR",
+            "class": "logging.FileHandler",
+            "filename": "cms-web.log",
+            "formatter": "verbose",
+        },
+    },
+    "loggers": {
+        "": {
+            "handlers": ["console_info", "console_error", "file_handler"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
     },
 }

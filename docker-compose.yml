@@ -1,20 +1,50 @@
 services:
   geomanager_db:
-    container_name: geomanager_db
+    container_name: ${DB_CNTR_NAME:-eahw-cms-pgdb}
+    command: postgres -c 'max_connections=${PG_MAX_CONNECTIONS:-120}'
     image: postgis/postgis:${PG_VERSION:-15-master}
-    restart: always
+    restart: ${RESTART_POLICY:-always}
     environment:
       - POSTGRES_USER=${CMS_DB_USER}
       - POSTGRES_DB=${CMS_DB_NAME}
       - POSTGRES_PASSWORD=${CMS_DB_PASSWORD}
+      - TZ=${TIME_ZONE:-Africa/Nairobi}
     ports:
       - ${HOST_IP:-127.0.0.1}:${DB_HOST_PORT:-5431}:5432
     volumes:
       - ${CMS_DB_VOLUME}:/var/lib/postgresql/data/
+  pgbouncer:
+    image: edoburu/pgbouncer:${PGB_VERSION:-v1.23.1-p2}
+    container_name: ${PGBOUNCER_CNTR_NAME:-eahw-cms-pgbouncer}
+    restart: ${RESTART_POLICY:-always}
+    shm_size: "4gb"
+    depends_on:
+      - geomanager_db
+    ports:
+      - ${PGB_HOST_IP:-${HOST_IP:-127.0.0.1}}:${PGB_HOST_PORT:-5463}:${PGB_LISTEN_PORT:-6432}
+    environment:
+      - LISTEN_PORT=${PGB_LISTEN_PORT:-6432}
+      - DB_HOST=${PG_HOST:-geomanager_db}
+      - DB_PORT=${PG_PORT:-5432}
+      - DB_NAME=${CMS_DB_NAME}
+      - DB_USER=${CMS_DB_USER}
+      - DB_PASSWORD=${CMS_DB_PASSWORD}
+      - AUTH_USER=${CMS_DB_USER}
+      - AUTH_TYPE=${PG_AUTH_METHOD:-scram-sha-256}
+      - AUTH_DBNAME=${CMS_DB_NAME}
+      - ADMIN_USERS=${CMS_DB_USER}
+      - MAX_CLIENT_CONN=${PGBOUNCER_MAX_CLIENT_CONN:-1024}
+      - POOL_MODE=${PGB_POOL_MODE:-session}
+      - DEFAULT_POOL_SIZE=${PGB_DEFAULT_POOL_SIZE:-120}
+      - SERVER_IDLE_TIMEOUT=${PGB_SERVER_IDLE_TIMEOUT:-600}
+      - CLIENT_IDLE_TIMEOUT=${PGB_CLIENT_IDLE_TIMEOUT:-1500}
+      - IDLE_TRANSACTION_TIMEOUT=${PGB_IDLE_TRANSACTION_TIMEOUT:-1200}
+      - VERBOSE=${PGB_VERBOSE:-1}
+      - TZ=${TIME_ZONE:-Africa/Nairobi}
   geomanager_memcached:
     image: memcached:alpine
-    container_name: geomanager_memcached
-    restart: always
+    container_name: ${MEMCACHED_CNTR_NAME:-eahw-cms-memcached}
+    restart: ${RESTART_POLICY:-always}
     ports:
       - ${HOST_IP:-127.0.0.1}:${CACHE_HOST_PORT:-11211}:11211
     entrypoint:
@@ -23,12 +53,12 @@ services:
       - -I 10m
   geomanager_web:
     platform: linux/x86_64
-    container_name: geomanager_web
+    container_name: ${WEB_CNTR_NAME:-eahw-cms-web}
     image: ${WEB_IMAGE_NAME:-icpac/geomanager-web}
     build:
       context: .
       dockerfile: ./docker/cms/Dockerfile
-    restart: always
+    restart: ${RESTART_POLICY:-always}
     command: >
       sh -c "/wait
       && ./docker-entrypoint.sh
@@ -38,24 +68,24 @@ services:
       - ${HOST_IP:-127.0.0.1}:${WEB_PORT:-8091}:8000
     environment:
       - WAIT_HOSTS=geomanager_db:5432,geomanager_memcached:11211
-      - WAIT_TIMEOUT=120
-      - DEBUG=${CMS_DEBUG}
-      - WAGTAIL_SITE_NAME=${CMS_SITE_NAME}
-      - ADMIN_URL_PATH=${ADMIN_URL_PATH}
-      - TIME_ZONE=${TIME_ZONE}
+      - WAIT_TIMEOUT=${WEB_WAIT_TIME:-120}
+      - DEBUG=${CMS_DEBUG:-False}
+      - WAGTAIL_SITE_NAME=${CMS_SITE_NAME:-localhost}
+      - ADMIN_URL_PATH=${ADMIN_URL_PATH:-cms-admin}
+      - TIME_ZONE=${TIME_ZONE:-Nairobi/Africa}
       - SECRET_KEY=${SECRET_KEY}
-      - ALLOWED_HOSTS=${ALLOWED_HOSTS}
-      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS}
-      - DATABASE_URL=postgis://${CMS_DB_USER}:${CMS_DB_PASSWORD}@geomanager_db:5432/${CMS_DB_NAME}
-      - MEMCACHED_URI=geomanager_memcached:11211
-      - MAPVIEWER_SERVER_URL=http://geomanager_mapviewer:3000
-      - WAGTAILADMIN_BASE_URL=${CMS_BASE_URL}
-      - LANGUAGE_CODE=${CMS_DEFAULT_LANGUAGE_CODE}
+      - ALLOWED_HOSTS=${ALLOWED_HOSTS:-}
+      - CSRF_TRUSTED_ORIGINS=${CSRF_TRUSTED_ORIGINS:-}
+      # connect to pgbouncer instead of connecting to db directly
+      - DATABASE_URL=postgis://${CMS_DB_USER}:${CMS_DB_PASSWORD}@${PGB_HOST:-pgbouncer}:${PG_PORT:-6432}/${CMS_DB_NAME}
+      - MEMCACHED_URI=${MEMCACHED_URI:-geomanager_memcached:11211}
+      - MAPVIEWER_SERVER_URL=${MAPVIEWER_SERVER_URL:-http://geomanager_mapviewer:3000}
+      - WAGTAILADMIN_BASE_URL=${CMS_BASE_URL:-http://localhost:8000}
+      - LANGUAGE_CODE=${CMS_DEFAULT_LANGUAGE_CODE:-en}
       - FORCE_SCRIPT_NAME=${FORCE_SCRIPT_NAME:-}
       - GEOMANAGER_AUTO_INGEST_RASTER_DATA_DIR=/geomanager/data
-      - DJANGO_SETTINGS_MODULE=geomanagerweb.settings.production
-      - DJANGO_ALLOW_ASYNC_UNSAFE=true
-      - WEEKLY_JSON_DB=${APP_WEEKLY_JSON_DB:-/opt/weekly-data-dates.json}
+      - DJANGO_SETTINGS_MODULE=${DJANGO_SETTINGS_MODULE:-geomanagerweb.settings.production}
+      - DJANGO_ALLOW_ASYNC_UNSAFE=${ALLOW_ASYNC_UNSAFE:-true}
     depends_on:
       - geomanager_db
     ports:
@@ -63,14 +93,14 @@ services:
     volumes:
       - ${CMS_STATIC_VOLUME}:/home/app/static
       - ${CMS_MEDIA_VOLUME}:/home/app/media
-      - ${WEEKLY_JSON_DB:-./weekly-data-dates.json}:${APP_WEEKLY_JSON_DB:-/opt/weekly-data-dates.json}
       - ${GEOMANAGER_AUTO_INGEST_DATA_VOLUME}:/geomanager/data
       - ./docker/volumes/cms/.cache:/root/.cache
+      - ${CMS_LOG_FILE:-./logs/cms-web.log}:/home/app/cms-web.log
   geomanager_mapviewer:
     platform: linux/x86_64
-    container_name: geomanager_mapviewer
+    container_name: ${MAPVIEWER_CNTR_NAME:-eahw-mapviewer}
     image: ${WEB_IMAGE_NAME:-icpac/geomanager-ui}
-    restart: always
+    restart: ${RESTART_POLICY:-always}
     build:
       context: ./docker/mapviewer
       dockerfile: Dockerfile
@@ -89,9 +119,9 @@ services:
     ports:
       - ${HOST_IP:-127.0.0.1}:${UI_HOST_PORT:-3130}:3000
   geomanager_nginx:
-    container_name: geomanager_nginx
+    container_name: ${NGINX_CNTR_NAME:-eahw-cms-nginx}
     image: nginx:alpine
-    restart: always
+    restart: ${RESTART_POLICY:-always}
     volumes:
       - ${CMS_STATIC_VOLUME}:/wagtail_static
       - ${CMS_MEDIA_VOLUME}:/wagtail_media
