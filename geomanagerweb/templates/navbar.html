@@ -62,7 +62,7 @@
         </div>
       </div>
     {% endif %}
-    
+
     <!-- Mobile burger menu -->
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
        data-target="mainNavbar">
@@ -136,8 +136,8 @@
   .navbar-item.nav-main-item.mapviewer {
     background-color: #ffb800 !important;
     color: #034930 !important;
-    border-radius: 2rem;
-    margin: 0 0.5rem;
+    border-radius: 4rem;
+    margin: 0.8rem;
     padding: 0.65rem 1.25rem;
     font-weight: 700;
   }
@@ -223,7 +223,7 @@
       padding-right: 2rem !important;
       justify-content: space-between; /* Adjust spacing for mobile */
     }
-    
+
     /* Mobile layout adjustments */
     .navbar-menu {
       position: static; /* Reset absolute positioning on mobile */
@@ -231,7 +231,7 @@
       display: none;
       flex-grow: 0;
     }
-    
+
     .navbar-menu.is-active {
       display: block;
       position: absolute;
@@ -243,13 +243,13 @@
       box-shadow: 0 8px 16px rgba(10, 10, 10, 0.1);
       z-index: 10;
     }
-    
+
     .navbar-burger {
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    
+
     .navbar-start {
       flex-direction: column;
       justify-content: flex-start;
@@ -273,7 +273,7 @@
     .navbar-item.nav-main-item.mapviewer {
       margin: 0.5rem 2rem;
     }
-    
+
     /* Mobile dropdown styling */
     .navbar-dropdown {
       position: static;
@@ -285,27 +285,27 @@
       box-shadow: none;
       border-left: 1px solid rgba(255, 255, 255, 0.1);
     }
-    
+
     .navbar-item.has-dropdown.is-active .navbar-dropdown {
       display: block;
     }
-    
+
     .navbar-link.nav-main-item {
       justify-content: center;
     }
-    
+
     /* Reset Explore Map button margin on mobile */
     .explore-map-btn {
       margin-left: 2rem !important;
     }
   }
-  
+
   @media screen and (max-width: 768px) {
     .navbar .container {
       padding-left: 1rem !important;
       padding-right: 1rem !important;
     }
-    
+
     .explore-map-btn {
       margin-left: 1rem !important;
     }
@@ -337,24 +337,24 @@
         item.classList.add('mapviewer');
       }
     });
-    
+
     // Enhanced dropdown functionality for mobile
     if (window.innerWidth <= 1023) {
       const dropdownLinks = document.querySelectorAll('.navbar-link');
-      
+
       dropdownLinks.forEach(link => {
         link.addEventListener('click', (e) => {
           e.preventDefault();
           const parent = link.parentElement;
-          
+
           // Toggle is-active class on the parent item
           parent.classList.toggle('is-active');
-          
+
           // Toggle the dropdown icon rotation
           const icon = link.querySelector('.dropdown-icon');
           if (icon) {
-            icon.style.transform = parent.classList.contains('is-active') 
-              ? 'rotate(180deg)' 
+            icon.style.transform = parent.classList.contains('is-active')
+              ? 'rotate(180deg)'
               : 'rotate(0)';
           }
         });
