@@ -114,6 +114,13 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
 
         context.update({"mapviewer_url": mapviewer_url})
 
+        #footer context
+
+        from .models import Footer
+
+        footer = Footer.objects.live().first()
+        context["footer"] = footer
+        
         return context
 
 class Footer(Page):
