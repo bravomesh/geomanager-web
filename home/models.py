@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from geomanager.models import Category
 from modelcluster.fields import ParentalKey
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
+from wagtail import blocks
 from wagtail.api.v2.utils import get_full_url
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page, Orderable
@@ -114,3 +115,101 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
         context.update({"mapviewer_url": mapviewer_url})
 
         return context
+
+class Footer(Page):
+    max_count = 1
+    template = "partials/footer.html"
+    parent_page_types = ["wagtailcore.Page"]
+    subpage_types = []
+
+    description = models.TextField(
+        blank=True,
+        verbose_name=_("Logo Description"),
+        help_text=_("A short text to display below the logo"),
+    )
+
+    services = StreamField(
+        [ (
+            "link", blocks.StructBlock(
+                [
+                    ("name", blocks.CharBlock(max_length=100, label=_("Service name"), required=True)),
+                    ("url", blocks.URLBlock(label=_("Service URL"), required=True, help_text="Service URL link")),
+                ],
+                icon="link",
+                ),
+        )],
+        blank=True,
+        use_json_field=True,
+        help_text=_("List of link services in the footer"),
+    )
+
+    tools_and_data = StreamField(
+        [(
+            "link", blocks.StructBlock(
+                [
+                    ("name", blocks.CharBlock(max_length=100, label=_("Tool and Data name"), required=True)),
+                    ("url", blocks.URLBlock(label=_("Tool and Data URL"), required=True, help_text="Tool and data URL link")),
+                ],
+                icon="link",
+                ),
+        )],
+        blank=True,
+        use_json_field=True,
+        help_text=_("List of tool and data links in the footer"),
+    )
+
+    organisation = StreamField([
+        (
+            "link", blocks.StructBlock(
+                [
+                    ("name", blocks.CharBlock(max_length=100, label=_("Organisation name"), required=True)),
+                    ("url", blocks.URLBlock(label=_("Organisation URL"), required=True, help_text="Organisation URL link")),
+                ],
+                icon="link",
+            ),
+        )],
+        blank=True,
+        use_json_field=True,
+        help_text=_("List of organisation links in the footer"),
+    )
+
+        # Social media URLs
+    facebook = models.URLField(blank=True, help_text="Facebook page URL")
+    twitter  = models.URLField(blank=True, help_text="Twitter profile URL")
+    youtube  = models.URLField(blank=True, help_text="YouTube channel URL")
+    linkedin = models.URLField(blank=True, help_text="LinkedIn page URL")
+    github   = models.URLField(blank=True, help_text="GitHub repo URL")
+    podcast  = models.URLField(blank=True, help_text="Podcast feed URL")
+
+    #editor interface panels
+    content_panels = Page.content_panels + [
+        FieldPanel("description"),
+
+        #grouped panels for each StreamField section
+        MultiFieldPanel(
+            [FieldPanel("services")],
+            heading= "Services",
+        ),
+        MultiFieldPanel(
+            [FieldPanel("tools_and_data")],
+            heading="TOOLS & DATA",
+        ),
+        MultiFieldPanel(
+            [FieldPanel("organisation")],
+            heading="ORGANISATION",
+        ),
+
+        #grouped panels for social links
+        MultiFieldPanel(
+            [
+                FieldPanel("facebook"),
+                FieldPanel("twitter"),
+                FieldPanel("youtube"),
+                FieldPanel("linkedin"),
+                FieldPanel("github"),
+                FieldPanel("podcast"),
+            ],
+            heading="SOCIAL LINKS",
+        ),
+    ]
+
