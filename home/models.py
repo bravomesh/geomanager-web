@@ -120,7 +120,6 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
 
         footer = Footer.objects.live().first()
         context["footer"] = footer
-        
         return context
 
 class Footer(Page):
@@ -128,6 +127,16 @@ class Footer(Page):
     template = "partials/footer.html"
     parent_page_types = ["wagtailcore.Page"]
     subpage_types = []
+
+    logo = models.ForeignKey(
+        "wagtailimages.Image",
+        verbose_name=_("Footer Logo"),
+        help_text=_("A high quality footer logo image"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
 
     description = models.TextField(
         blank=True,
@@ -190,6 +199,7 @@ class Footer(Page):
 
     #editor interface panels
     content_panels = Page.content_panels + [
+        FieldPanel("logo"),
         FieldPanel("description"),
 
         #grouped panels for each StreamField section
