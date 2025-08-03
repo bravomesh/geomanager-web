@@ -1,4 +1,4 @@
-{% load static wagtailimages_tags %}
+{% load wagtailimages_tags %}
 
 <!-- if a Footer instance is found, then render-->
 {% if footer %}
@@ -8,12 +8,9 @@
 
       <!-- Logo & Description  -->
       <div class="column is-one-quarter">
-        <img
-          src="{% static 'images/ICPAC_Logo_White.svg' %}"
-          alt="ICPAC Logo"
-          class="footer-logo"
-          style="max-width:150px; margin-bottom:1rem;"
-        >
+        {% if footer.logo %}
+          {% image footer.logo fill-172x212 class="footer-logo" style="max-width:150px; margin-bottom:1rem;" %}
+        {% endif %}
         <p class="footer-text">
           {{ footer.description }}
         </p>
@@ -111,3 +108,82 @@
   </div> 
 </footer>
 {% endif %}
+
+<style>
+  .footer {
+            background-color: #034930;  /* Dark green from IGAD ICPAC logo */
+            padding: 2.5rem 1.5rem;  /* Reduced padding */
+            color: white;
+            margin-top: auto;
+        }
+        .footer a {
+            color: #efefef;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        .footer ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .footer li {
+            margin-bottom: 0.5rem;
+        }
+        .footer-heading {
+            color: #fff;
+            margin-bottom: 1rem;
+            font-weight: bold;
+        }
+        .footer-text {
+            color: #efefef;
+        }
+        .icon-spacing {
+            margin-right: 8px;
+        }
+        .footer-divider {
+            background-color: rgba(255,255,255,0.2);
+            margin: 1.5rem 0;  /* Reduced margin */
+            height: 1px;
+        }
+        .copyright {
+            color: #efefef;
+            font-size: 0.9rem;
+        }
+        .social-icons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+        .social-icon {
+            color: #efefef;
+            font-size: 1.1rem;
+        }
+        .social-icon:hover {
+            color: white;
+        }
+        .feedback-button .button {
+            border-color: white;
+            color: white;
+            background-color: rgba(255,255,255,0.2);
+        }
+        .feedback-button .button:hover {
+            background-color: rgba(255,255,255,0.3);
+        }
+        @media screen and (max-width: 768px) {
+            .footer .columns { flex-direction: column; }
+            .footer .column {
+                width: 100%;
+                margin-bottom: 1.5rem;
+            }
+            .footer { padding: 1.5rem 1rem; }  /* Further reduced on mobile */
+            .social-icons {
+                justify-content: center;
+                margin-top: 1rem;
+            }
+            .copyright {
+                text-align: center;
+            }
+        }
+</style>
