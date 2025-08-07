@@ -14,7 +14,7 @@ services:
     volumes:
       - ${CMS_DB_VOLUME}:/var/lib/postgresql/data/
   pgbouncer:
-    image: edoburu/pgbouncer:${PGB_VERSION:-v1.23.1-p2}
+    image: edoburu/pgbouncer:${PGB_VERSION:-latest}
     container_name: ${PGBOUNCER_CNTR_NAME:-eahw-cms-pgbouncer}
     restart: ${RESTART_POLICY:-always}
     shm_size: "4gb"
