@@ -1,6 +1,6 @@
 [project]
 name = "geomanager-web"
-version = "0.5.4"
+version = "0.5.5"
 description = "A wraper package for geomanager and geomapviewer"
 authors = [
     { name = "Erick Otenyo", email = "otenyo.erick@gmail.com" },

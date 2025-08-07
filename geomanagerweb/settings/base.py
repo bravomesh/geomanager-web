@@ -218,7 +218,7 @@ CACHES = {
         "TIMEOUT": 3600,  # one hour (in seconds)
     }
 }
-
+WAGTAILIMAGES_EXTENSIONS = ["gif", "jpg", "jpeg", "png", "webp", "svg"]
 # RECAPTCHA Settings
 RECAPTCHA_PUBLIC_KEY = env.str("RECAPTCHA_PUBLIC_KEY", "")
 RECAPTCHA_PRIVATE_KEY = env.str("RECAPTCHA_PRIVATE_KEY", "")

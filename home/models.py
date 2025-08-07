@@ -116,14 +116,10 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
 
         #footer context
 
-        from .models import Footer, Navbar
+        from .models import Footer
 
         footer = Footer.objects.live().first()
         context["footer"] = footer
-
-        navbar = Navbar.objects.live().first()
-        context["navbar"] = navbar
-        
         return context
 
 class Footer(Page):
@@ -231,46 +227,6 @@ class Footer(Page):
                 FieldPanel("podcast"),
             ],
             heading="SOCIAL LINKS",
-        ),
-    ]
-
-
-class Navbar(Page):
-    max_count = 1
-    template = "partials/navbar.html"
-    parent_page_types = ["wagtailcore.Page"]
-    subpage_types = []
-
-    logo = models.ForeignKey(
-        "wagtailimages.Image",
-        verbose_name=_("Navbar Logo"),
-        help_text=_("A high quality logo image"),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    menu_links = StreamField(
-        [ 
-            ("link", blocks.StructBlock(
-                [
-                    ("name", blocks.CharBlock(max_length=100, label=_("Menu item name"), required=True)),
-                    ("url", blocks.URLBlock(label=_("Menu URL"), required=True, help_text="Menu item URL")),
-                ],
-                icon="link",
-            )),
-        ],
-        blank=True,
-        use_json_field=True,
-        help_text=_("List of menu items in the navbar"),
-    )
-
-    content_panels = Page.content_panels + [
-        FieldPanel("logo"),
-        MultiFieldPanel(
-            [FieldPanel("menu_links")],
-            heading=_("Menu Links"),
         ),
     ]
 
