@@ -14,114 +14,45 @@ from wagtailmetadata.models import MetadataPageMixin
 from .blocks import InfoBlock, FeatureBlock
 
 
-class BannerImage(Orderable):
-    """A banner image for the home page."""
-
-    id = models.BigAutoField(primary_key=True)  # specify the primary key
-    page = ParentalKey("HomePage", related_name="banner_images")
-    image = models.ForeignKey(
-        "wagtailimages.Image",
-        verbose_name=_("Banner Image"),
-        help_text=_("A high quality banner image"),
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
-
-    panels = [
-        FieldPanel("image"),
-    ]
-
-
-class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
-    template = "home/home_page.html"
-    parent_page_type = ["wagtailcore.Page"]
-    subpage_types = []
+class Navbar(Page):
     max_count = 1
+    template = "partials/navbar.html"
+    parent_page_types = ["wagtailcore.Page"]
+    subpage_types = []
 
-    banner_title = models.CharField(max_length=255, verbose_name=_("Banner Title"))
-    banner_subtitle = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Banner Subtitle"))
-
-    intro_text = RichTextField(
-        blank=True,
-        null=True,
-        features=["bold"],
-        verbose_name=_("Introduction text"),
-        help_text=_("Introduction section description"),
-    )
-    intro_image = models.ForeignKey(
+    logo = models.ForeignKey(
         "wagtailimages.Image",
-        verbose_name=_("Introduction Image"),
-        help_text=_("A high quality image"),
+        verbose_name=_("Navbar Logo"),
+        help_text=_("A high quality logo image"),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
         related_name="+",
     )
 
-    info_blocks = StreamField(
-        [
-            ("info", InfoBlock(label=_("Info"))),
+    menu_links = StreamField(
+        [ 
+            ("link", blocks.StructBlock(
+                [
+                    ("name", blocks.CharBlock(max_length=100, label=_("Menu item name"), required=True)),
+                    ("url", blocks.URLBlock(label=_("Menu URL"), required=True, help_text="Menu item URL")),
+                ],
+                icon="link",
+            )),
         ],
-        null=True,
         blank=True,
         use_json_field=True,
-        verbose_name=_("Info Section"),
-    )
-
-    feature_blocks = StreamField(
-        [
-            (
-                "feature",
-                FeatureBlock(label=_("Feature")),
-            ),
-        ],
-        null=True,
-        blank=True,
-        use_json_field=True,
-        verbose_name=_("Features"),
+        help_text=_("List of menu items in the navbar"),
     )
 
     content_panels = Page.content_panels + [
+        FieldPanel("logo"),
         MultiFieldPanel(
-            [
-                FieldPanel("banner_title"),
-                FieldPanel("banner_subtitle"),
-                InlinePanel("banner_images", label=_("Banner Images"), max_num=10),
-            ],
-            heading=_("Banner Section"),
+            [FieldPanel("menu_links")],
+            heading=_("Menu Links"),
         ),
-        MultiFieldPanel(
-            [
-                FieldPanel("intro_text"),
-                FieldPanel("intro_image"),
-            ],
-            heading=_("Introduction Section"),
-        ),
-        FieldPanel("info_blocks"),
-        FieldPanel("feature_blocks"),
     ]
-
-    def get_context(self, request, *args, **kwargs):
-        context = super(HomePage, self).get_context(request, *args, **kwargs)
-
-        dataset_categories = Category.objects.filter(active=True, public=True)
-
-        context.update({"dataset_categories": dataset_categories})
-
-        mapviewer_url = get_full_url(request, reverse("mapview"))
-
-        context.update({"mapviewer_url": mapviewer_url})
-
-        #footer context
-
-        from .models import Footer
-
-        footer = Footer.objects.live().first()
-        context["footer"] = footer
-        return context
-
+    
 class Footer(Page):
     max_count = 1
     template = "partials/footer.html"
@@ -230,3 +161,112 @@ class Footer(Page):
         ),
     ]
 
+
+
+class BannerImage(Orderable):
+    """A banner image for the home page."""
+
+    id = models.BigAutoField(primary_key=True)  # specify the primary key
+    page = ParentalKey("HomePage", related_name="banner_images")
+    image = models.ForeignKey(
+        "wagtailimages.Image",
+        verbose_name=_("Banner Image"),
+        help_text=_("A high quality banner image"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    panels = [
+        FieldPanel("image"),
+    ]
+
+
+class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
+    template = "home/home_page.html"
+    parent_page_type = ["wagtailcore.Page"]
+    subpage_types = []
+    max_count = 1
+
+    banner_title = models.CharField(max_length=255, verbose_name=_("Banner Title"))
+    banner_subtitle = models.CharField(max_length=255, blank=True, null=True, verbose_name=_("Banner Subtitle"))
+
+    intro_text = RichTextField(
+        blank=True,
+        null=True,
+        features=["bold"],
+        verbose_name=_("Introduction text"),
+        help_text=_("Introduction section description"),
+    )
+    intro_image = models.ForeignKey(
+        "wagtailimages.Image",
+        verbose_name=_("Introduction Image"),
+        help_text=_("A high quality image"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="+",
+    )
+
+    info_blocks = StreamField(
+        [
+            ("info", InfoBlock(label=_("Info"))),
+        ],
+        null=True,
+        blank=True,
+        use_json_field=True,
+        verbose_name=_("Info Section"),
+    )
+
+    feature_blocks = StreamField(
+        [
+            (
+                "feature",
+                FeatureBlock(label=_("Feature")),
+            ),
+        ],
+        null=True,
+        blank=True,
+        use_json_field=True,
+        verbose_name=_("Features"),
+    )
+
+    content_panels = Page.content_panels + [
+        MultiFieldPanel(
+            [
+                FieldPanel("banner_title"),
+                FieldPanel("banner_subtitle"),
+                InlinePanel("banner_images", label=_("Banner Images"), max_num=10),
+            ],
+            heading=_("Banner Section"),
+        ),
+        MultiFieldPanel(
+            [
+                FieldPanel("intro_text"),
+                FieldPanel("intro_image"),
+            ],
+            heading=_("Introduction Section"),
+        ),
+        FieldPanel("info_blocks"),
+        FieldPanel("feature_blocks"),
+    ]
+
+    def get_context(self, request, *args, **kwargs):
+        context = super(HomePage, self).get_context(request, *args, **kwargs)
+
+        dataset_categories = Category.objects.filter(active=True, public=True)
+
+        context.update({"dataset_categories": dataset_categories})
+
+        mapviewer_url = get_full_url(request, reverse("mapview"))
+
+        context.update({"mapviewer_url": mapviewer_url})
+
+        footer = Footer.objects.live().first()
+        context["footer"] = footer
+        
+        navbar = Navbar.objects.live().first()
+        context["navbar"] = navbar
+        
+        return context
