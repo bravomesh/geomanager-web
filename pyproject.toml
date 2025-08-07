@@ -21,8 +21,8 @@ dependencies = [
     "pymemcache (==4.0.0)",
     "wagtail-lazyimages (==0.1.5)",
     "wagtail-metadata (==5.0.0)",
-    "geomanager @ git+https://github.com/icpac-igad/geomanager.git@main",
     "wagtail-adminsortable @ git+https://github.com/wmo-raf/wagtail-admin-sortable.git@master",
+    "geomanager @ git+https://github.com/icpac-igad/geomanager.git@main",
 ]
 
 [tool.poetry]
