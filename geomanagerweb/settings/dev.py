@@ -18,3 +18,6 @@ INSTALLED_APPS += ["wagtail.contrib.styleguide"]
 # used in dev with Mac OS
 GDAL_LIBRARY_PATH = env.str("GDAL_LIBRARY_PATH", None)
 GEOS_LIBRARY_PATH = env.str("GEOS_LIBRARY_PATH", None)
+
+# grab proxy headers
+USE_X_FORWARDED_HOST=True
