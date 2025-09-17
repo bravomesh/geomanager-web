@@ -111,79 +111,124 @@
 
 <style>
   .footer {
-            background-color: #034930;  /* Dark green from IGAD ICPAC logo */
-            padding: 2.5rem 1.5rem;  /* Reduced padding */
-            color: white;
-            margin-top: auto;
-        }
-        .footer a {
-            color: #efefef;
-            transition: color 0.3s ease;
-        }
-        .footer a:hover {
-            color: white;
-            text-decoration: underline;
-        }
-        .footer ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .footer li {
-            margin-bottom: 0.5rem;
-        }
-        .footer-heading {
-            color: #fff;
-            margin-bottom: 1rem;
-            font-weight: bold;
-        }
-        .footer-text {
-            color: #efefef;
-        }
-        .icon-spacing {
-            margin-right: 8px;
-        }
-        .footer-divider {
-            background-color: rgba(255,255,255,0.2);
-            margin: 1.5rem 0;  /* Reduced margin */
-            height: 1px;
-        }
-        .copyright {
-            color: #efefef;
-            font-size: 0.9rem;
-        }
-        .social-icons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-        }
-        .social-icon {
-            color: #efefef;
-            font-size: 1.1rem;
-        }
-        .social-icon:hover {
-            color: white;
-        }
-        .feedback-button .button {
-            border-color: white;
-            color: white;
-            background-color: rgba(255,255,255,0.2);
-        }
-        .feedback-button .button:hover {
-            background-color: rgba(255,255,255,0.3);
-        }
-        @media screen and (max-width: 768px) {
-            .footer .columns { flex-direction: column; }
-            .footer .column {
-                width: 100%;
-                margin-bottom: 1.5rem;
-            }
-            .footer { padding: 1.5rem 1rem; }  /* Further reduced on mobile */
-            .social-icons {
-                justify-content: center;
-                margin-top: 1rem;
-            }
-            .copyright {
-                text-align: center;
-            }
-        }
+    background-color: var(--footer-bg);
+    padding: 2.5rem 1.5rem;
+    color: var(--footer-text);
+    margin-top: auto;
+  }
+
+  .footer a {
+    color: color-mix(in srgb, var(--footer-text) 90%, white);
+    transition: color 0.3s ease;
+  }
+
+  .footer a:hover {
+    color: var(--footer-text);
+    text-decoration: underline;
+  }
+
+  .footer ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .footer li {
+    margin-bottom: 0.5rem;
+  }
+
+  .footer-heading {
+    color: var(--footer-text);
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .footer-text {
+    color: color-mix(in srgb, var(--footer-text) 90%, white);
+  }
+
+  .icon-spacing {
+    margin-right: 8px;
+  }
+
+  .footer-divider {
+    background-color: color-mix(in srgb, var(--footer-text) 20%, transparent);
+    margin: 1.5rem 0;
+    height: 1px;
+  }
+
+  .copyright {
+    color: color-mix(in srgb, var(--footer-text) 90%, white);
+    font-size: 0.9rem;
+  }
+
+  .social-icons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  .social-icon {
+    color: color-mix(in srgb, var(--footer-text) 90%, white);
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+  }
+
+  .social-icon:hover {
+    color: var(--footer-text);
+  }
+
+  .feedback-button .button {
+    border-color: var(--footer-text);
+    color: var(--footer-text);
+    background-color: color-mix(in srgb, var(--footer-text) 20%, transparent);
+    transition: background-color 0.3s ease;
+  }
+
+  .feedback-button .button:hover {
+    background-color: color-mix(in srgb, var(--footer-text) 30%, transparent);
+  }
+
+  @media screen and (max-width: 768px) {
+    .footer .columns { 
+      flex-direction: column; 
+    }
+    
+    .footer .column {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer { 
+      padding: 1.5rem 1rem;
+    }
+    
+    .social-icons {
+      justify-content: center;
+      margin-top: 1rem;
+    }
+    
+    .copyright {
+      text-align: center;
+    }
+    
+    .feedback-button {
+      text-align: center;
+      margin-top: 1rem;
+    }
+  }
+
+  /* Additional responsive tweaks for better mobile experience */
+  @media screen and (max-width: 480px) {
+    .footer {
+      padding: 1rem 0.75rem;
+    }
+    
+    .social-icons {
+      gap: 0.75rem;
+    }
+    
+    .social-icon {
+      font-size: 1rem;
+    }
+  }
 </style>

@@ -32,116 +32,136 @@
 {% endif %}
 
 <style>
-.navbar{
-    background-color: #034930;
-}
-.logo-container {
-  position: relative;
-  display: flex;
-  align-items: center;
-  margin: 0.5rem 1.5rem 0.5rem 0.5rem;
-  min-width: 150px;
-}
-
-.logo-img {
-  max-height: 60px;
-  width: auto;
-  display: block;
-  transition: all 0.3s ease;
-}
-
-/* Navbar menu styling (minimal, adjust as needed) */
-.navbar-menu {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: 1;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-menu li {
-  margin: 0 0.5rem;
-  text-align: center;
-}
-
-.navbar-item.nav-main-item {
-  color: white !important;
-  font-weight: 600;
-  font-size: 1.1rem;
-  padding: 0.75rem 1.5rem;
-  background-color: transparent !important;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  transition: background-color 0.3s;
-  border-radius: 4px;
-  text-decoration: none;
-  display: inline-block;
-}
-
-.navbar-item.nav-main-item:hover,
-.navbar-item.nav-main-item.is-active {
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  color: white !important;
-}
-
-.navbar-item.nav-main-item.mapviewer-link {
-  background-color: #fbc02d !important; 
-  border-radius: 64px;
-  color: black !important;
-}
-
-.navbar-item.nav-main-item.mapviewer-link:hover {
-  background-color: #dab511 !important; 
-  color: black !important;
-}
-
-.navbar-burger{
-    display: none;
-    cursor: pointer;
-    flex-direction: column;
-    justify-content: center;
-    padding: 0.5rem;
-}
-
-.navbar-burger span {
-    display: block;
-    width: 25px;
-    height: 3px;
-    background-color: white;
-    transition: all 0.3s ease;
-}
-/* Responsive adjustments */
-@media screen and (max-width: 1023px) {
-  .navbar-menu {
-    display: none;
+  .navbar{
+      background-color: var(--navbar-bg);
   }
-  .navbar-menu li {
-    margin: 0.5rem 1rem;
-  }
-  .navbar-burger {
-    display:block;
-    position: absolute;
-    right: 30px;
-    top:6px;
-  }
-  .navbar-menu.active{
-    display: flex;
-    margin-top: 10px;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    background-color: #034930;
-    transition: all 0.3s ease-in-out;
-  }
+
   .logo-container {
-    margin: 2rem 0 1.5rem 3rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0.5rem 1.5rem 0.5rem 0.5rem;
+    min-width: 150px;
   }
+
+  .logo-img {
+    max-height: 60px;
+    width: auto;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  /* Navbar menu styling */
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar-menu li {
+    margin: 0 0.5rem;
+    text-align: center;
+  }
+
+  .navbar-item.nav-main-item {
+    color: var(--navbar-text) !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+    padding: 0.75rem 1.5rem;
+    background-color: transparent !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: background-color 0.3s, color 0.3s;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+  }
+
+  .navbar-item.nav-main-item:hover,
+  .navbar-item.nav-main-item.is-active {
+    background-color: color-mix(in srgb, var(--navbar-text) 15%, transparent) !important;
+    color: var(--navbar-text) !important;
+  }
+
+  .navbar-item.nav-main-item.mapviewer-link {
+    background-color: var(--accent-color) !important; 
+    border-radius: 64px;
+    color: var(--button-accent-text) !important;
+  }
+
+  .navbar-item.nav-main-item.mapviewer-link:hover {
+    background-color: var(--accent-hover) !important; 
+    color: var(--button-accent-text) !important;
+  }
+
+  .navbar-burger{
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0.5rem;
+  }
+
   .navbar-burger span {
-  margin: 10px 0;
-}
-}
+      display: block;
+      width: 25px;
+      height: 3px;
+      background-color: var(--navbar-text);
+      transition: all 0.3s ease;
+  }
+
+  /* Responsive adjustments */
+  @media screen and (max-width: 1023px) {
+    .navbar-menu {
+      display: none;
+    }
+    
+    .navbar-menu li {
+      margin: 0.5rem 1rem;
+    }
+    
+    .navbar-burger {
+      display: block;
+      position: absolute;
+      right: 30px;
+      top: 6px;
+    }
+    
+    .navbar-menu.active {
+      display: flex;
+      margin-top: 10px;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      background-color: var(--navbar-bg);
+      transition: all 0.3s ease-in-out;
+    }
+    
+    .logo-container {
+      margin: 2rem 0 1.5rem 3rem;
+    }
+    
+    .navbar-burger span {
+      margin: 10px 0;
+    }
+    
+    /* Mobile menu items */
+    .navbar-menu.active .navbar-item.nav-main-item {
+      margin: 0.5rem 0;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* Burger icon colors for mobile */
+  #burger-icon,
+  #close-icon {
+    filter: brightness(0) invert(1); /* Makes SVG icons white to match navbar text */
+  }
 </style>
 
 <script>
