@@ -270,3 +270,27 @@ class HomePage(MetadataPageMixin, WagtailCacheMixin, Page):
         context["navbar"] = navbar
         
         return context
+
+class SiteTheme(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=100, help_text="Name for this theme")
+    primary_color = models.CharField(max_length=7, default="#034930", help_text="Main brand color (navbar, footer, primary buttons)")
+    secondary_color = models.CharField(max_length=7, default="#198754", help_text="Secondary color (buttons, highlights)")
+    accent_color = models.CharField(max_length=7, default="#fbc02d", help_text="Accent color (call-to-action elements)")
+    primary_text_color = models.CharField(max_length=7, default="#ffffff", help_text="Main text color")
+    secondary_text_color = models.CharField(max_length=7, default="#333333", help_text="Secondary text color")
+    background_color = models.CharField(max_length=7, default="#ffffff", help_text="Main background color")
+    is_active = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        if self.is_active:
+            # Ensure only one active theme
+            SiteTheme.objects.filter(is_active=True).update(is_active=False)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.name} (Active)" if self.is_active else self.name
+
+    class Meta:
+        verbose_name = "Site Theme"
+        verbose_name_plural = "Site Themes" 
