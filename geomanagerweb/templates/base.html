@@ -43,6 +43,35 @@
             padding-bottom: 1.5rem;
         } 
     </style>
+    <!-- Dynamic Theming CSS Variables -->
+    <style>
+    :root {
+        /* Core color variables */
+        --primary-color: {{ theme.primary_color }};
+        --secondary-color: {{ theme.secondary_color }};
+        --accent-color: {{ theme.accent_color }};
+        --primary-text-color: {{ theme.primary_text_color }};
+        --secondary-text-color: {{ theme.secondary_text_color }};
+        --background-color: {{ theme.background_color }};
+
+        /* Derived variables */
+        --primary-hover: color-mix(in srgb, var(--primary-color) 90%, black);
+        --secondary-hover: color-mix(in srgb, var(--secondary-color) 90%, black);
+        --accent-hover: color-mix(in srgb, var(--accent-color) 90%, black);
+
+        /* Semantic variables */
+        --navbar-bg: var(--primary-color);
+        --navbar-text: var(--primary-text-color);
+        --footer-bg: var(--primary-color);
+        --footer-text: var(--primary-text-color);
+        --button-primary-bg: var(--secondary-color);
+        --button-primary-text: var(--primary-text-color);
+        --button-accent-bg: var(--accent-color);
+        --button-accent-text: var(--secondary-text-color);
+        --card-bg: var(--background-color);
+        --text-body: var(--secondary-text-color);
+    }
+    </style>
     
     {% block extra_css %}{% endblock %}
 </head>
