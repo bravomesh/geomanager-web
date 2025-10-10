@@ -1,38 +1,30 @@
 [project]
 name = "geomanager-web"
-version = "0.5.5"
+version = "0.5.7"
 description = "A wraper package for geomanager and geomapviewer"
 authors = [
     { name = "Erick Otenyo", email = "otenyo.erick@gmail.com" },
     { name = "Jason Kinyua", email = "jaysnmury@gmail.com" },
 ]
-license = { text = "CC BY 4.0" }
+license = "CC-BY-4.0"
 readme = "README.md"
-requires-python = ">=3.10,<4"
+requires-python = ">=3.11, <3.14"
 dependencies = [
-    "channels (==4.0.0)",
-    "daphne (==4.0.0)",
-    "django (==4.2.8)",
-    "django-cleanup (==8.0.0)",
-    "django-cors-headers (==4.3.1)",
-    "django-deep-translator (==1.5.1)",
-    "django-environ (==0.12.0)",
-    "psycopg2-binary (==2.9.9)",
-    "pymemcache (==4.0.0)",
-    "wagtail-lazyimages (==0.1.5)",
-    "wagtail-metadata (==5.0.0)",
+    "channels==4.0.0",
+    "daphne==4.0.0",
+    "django==4.2.16",
+    "django-cleanup==8.0.0",
+    "django-cors-headers==4.3.1",
+    "django-deep-translator==1.5.1",
+    "django-environ==0.12.0",
+    "psycopg2-binary==2.9.10",
+    "pymemcache==4.0.0",
+    "wagtail-lazyimages==0.1.5",
+    "wagtail-metadata==5.0.0",
     "wagtail-adminsortable @ git+https://github.com/wmo-raf/wagtail-admin-sortable.git@master",
     "geomanager @ git+https://github.com/icpac-igad/geomanager.git@main",
-    "wagtail (==6.3.2)",
+    "wagtail==6.3.2",
 ]
-
-[tool.poetry]
-package-mode = false
-
-[tool.poetry.group.dev.dependencies]
-ruff = "^0.11.5"
-black = "^25.1.0"
-pre-commit = "^4.2.0"
 
 [tool.ruff]
 target-version = "py310"
@@ -58,6 +50,7 @@ docstring-code-line-length = "dynamic"
 "production.py" = ["F403", "F405"]
 "**/{tests,docs,tools}/*" = ["E402"]
 
+
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
